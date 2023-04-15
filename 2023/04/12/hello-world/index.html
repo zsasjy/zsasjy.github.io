@@ -445,7 +445,7 @@
             
     <div id="gitalk-container"></div>
     <script data-pjax
-            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+            src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script data-pjax>
 
         function loadGitalk() {
@@ -459,12 +459,13 @@
             try {
                 Gitalk && new Gitalk({
                     clientID: 'b03b8da04a47bfc936a2',
-                    clientSecret: 'ebbf2a13e526f01af34180b2abccd10fa5db37a6',
-                    repo: 'zsasjy/zsasjy.github.io',
+                    clientSecret: '4b9281f5cd36d1539920d154fc24dd6a9adb2613',
+                    repo: 'zsasjy.github.io',
                     owner: 'zsasjy',
                     admin: ['zsasjy'],
                     id: __gitalk__pathname,
-                    language: 'zh-CN'
+                    language: 'zh-CN',
+                    labels: ['Gitalk', 'bug', 'documentation', 'question']
                 }).render('gitalk-container');
 
             } catch (e) {
