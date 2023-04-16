@@ -426,9 +426,29 @@
   <div class="recommended-article-header">
     <i aria-hidden="true"></i><span>推荐文章</span>
   </div>
-  <div class="recommended-article-group"></div>
+  <div class="recommended-article-group"><div class="recommended-article-empty"><img src="https://cdn.lavagolem.xyz/empty.svg" /></div></div>
 </div>
 
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/16/css%E8%A7%84%E8%8C%83/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">前端 CSS 代码规范</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                </div>
             
 
 
@@ -463,7 +483,7 @@
                     repo: 'zsasjy.github.io',
                     owner: 'zsasjy',
                     admin: ['zsasjy'],
-                    id: __gitalk__pathname,
+                    id: window.location.pathname,
                     language: 'zh-CN',
                     labels: ['Gitalk', 'bug', 'documentation', 'question']
                 }).render('gitalk-container');

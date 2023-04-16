@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="爱吃猪头爱吃肉">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/04/16/css规范/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="说明CSS 规范这里主要集成三个规则集，这三个规则集分别对 CSS 规范中分别对可能的错误、写法、以及书写顺序做了一定的规范，下面会详细列出校验的规则，如果想要添加额外的规则则可以查看 stylelint 官方文档，这里提供了其余 100+ 规则，此文档的规则是检查代码中可能为导致问题的，所以全是强制打开，其余 formatter 相关的规则用户可以自行设置。stylelint-config-re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端 CSS 代码规范">
+<meta property="og:url" content="http://example.com/2023/04/16/css%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="说明CSS 规范这里主要集成三个规则集，这三个规则集分别对 CSS 规范中分别对可能的错误、写法、以及书写顺序做了一定的规范，下面会详细列出校验的规则，如果想要添加额外的规则则可以查看 stylelint 官方文档，这里提供了其余 100+ 规则，此文档的规则是检查代码中可能为导致问题的，所以全是强制打开，其余 formatter 相关的规则用户可以自行设置。stylelint-config-re">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-16T01:03:30.000Z">
+<meta property="article:modified_time" content="2023-04-16T01:28:34.706Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="web前端">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#CC9933">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            前端 CSS 代码规范 -
+        
+        Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true,"enabled":true},"author_label":{"enable":false,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":4,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐文章","limit":5,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#CC9933","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"chinese":{"enable":true,"family":"KaiTi"}},"home_banner":{"enable":true,"image":{"light":"https://cdn.lavagolem.xyz/a26f66658e014e06aa70e2753742bef3.jpg","dark":"https://cdn.lavagolem.xyz/c071cdc46f0c4867a1d52d0cb51fc6d6.jpg"},"title":"爱吃猪头爱吃肉","subtitle":{"text":["我不说话，就没人知道我是菜鸡!",""],"typing_speed":200,"backing_speed":500,"starting_delay":200,"backing_delay":200,"loop":true,"smart_backspace":true},"text_color":{"light":"#FFFFFF","dark":"#FFFFFF"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"KaiTi","url":null},"social_links":{"enable":false,"links":{"github":["https://github.com/zsasjy"],"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":20},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"TAGS":{"path":"/tags","icon":"fa-regular fa-tag"},"ESSAY":{"path":"/essay","icon":"fa-regular fa-comment-pen"},"ABOUT":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"right","announcement":"用来试试水","links":null,"announcementtitle":"公告"},"article_date_format":"YYYY-MM-DD HH:mm:ss","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<!-- 引用 artitalk -->
+<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tag"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/essay"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-comment-pen"></i>
+                                        
+                                        随笔
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/about"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tag"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/essay"  >
+                             
+                                
+                                    <i class="fa-regular fa-comment-pen"></i>
+                                
+                                随笔
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/about"  >
+                             
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">前端 CSS 代码规范</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://cdn.lavagolem.xyz/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">爱吃猪头爱吃肉</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-16 09:03:30</span>
+        <span class="mobile">2023-04-16 09:03</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-04-16 09:28:34</span>
+            <span class="mobile">2023-04-16 09:28</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/web%E5%89%8D%E7%AB%AF/">web前端</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/css/">css</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>CSS 规范这里主要集成三个规则集，这三个规则集分别对 CSS 规范中分别对可能的错误、写法、以及书写顺序做了一定的规范，下面会详细列出校验的规则，如果想要添加额外的规则则可以查看 stylelint 官方文档，这里提供了其余 100+ 规则，此文档的规则是检查代码中可能为导致问题的，所以全是强制打开，其余 formatter 相关的规则用户可以自行设置。<br><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/stylelint-config-recommended" >stylelint-config-recommended <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/stylelint-config-rational-order" >stylelint-config-rational-order <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/stylelint-config-prettier" >stylelint-config-prettier <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<blockquote>
+<p>架构前端代码规范<br>    - 遵循最小交集原则<br>    - 遵循最小扯皮原则<br>    - 遵循代码质量优先原则</p>
+</blockquote>
+<h2 id="规则（强制）"><a href="#规则（强制）" class="headerlink" title="规则（强制）"></a>规则（强制）</h2><h2 id="1-颜色应由-6-或-8-个-16-进制数字表示，速记表示应由-3-或-4-个-16-进制数字来表示"><a href="#1-颜色应由-6-或-8-个-16-进制数字表示，速记表示应由-3-或-4-个-16-进制数字来表示" class="headerlink" title="1. 颜色应由 6 或 8 个 16 进制数字表示，速记表示应由 3 或 4 个 16 进制数字来表示"></a>1. 颜色应由 6 或 8 个 16 进制数字表示，速记表示应由 3 或 4 个 16 进制数字来表示</h2><h3 id="✅-正确例子"><a href="#✅-正确例子" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-number">#000f</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff1a0</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-number">#123450aa</span>; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子"><a href="#❌-错误例子" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: #<span class="hljs-number">00</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: #fff1az; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: #<span class="hljs-number">12345</span>aa; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则"><a href="#StyleLint-规则" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;color-no-invalid-hex&#x27;</span>: <span class="hljs-literal">true</span>,<br></code></pre></td></tr></table></figure></div>
+<h2 id="2-grid-命名必须遵循规范"><a href="#2-grid-命名必须遵循规范" class="headerlink" title="2. grid 命名必须遵循规范"></a>2. grid 命名必须遵循规范</h2><ul>
+<li>每一行有相同数量的列标识</li>
+<li>至少有一个列标识</li>
+</ul>
+<h3 id="✅-正确例子-1"><a href="#✅-正确例子-1" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">grid-template-areas</span>: <span class="hljs-string">&quot;a a a&quot;</span><br>                         <span class="hljs-string">&quot;b b b&quot;</span>; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-1"><a href="#❌-错误例子-1" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">grid-template-areas</span>: <span class="hljs-string">&quot;&quot;</span> &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">grid-template-areas</span>: <span class="hljs-string">&quot;a a a&quot;</span><br>                         <span class="hljs-string">&quot;b b b b&quot;</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">grid-template-areas</span>: <span class="hljs-string">&quot;a a a&quot;</span><br>                         <span class="hljs-string">&quot;b b a&quot;</span>; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-1"><a href="#StyleLint-规则-1" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;named-grid-areas-no-valid&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="3-对渐变色函数-linear-gradient-的第一个参数进行限制，参数必须为合法值"><a href="#3-对渐变色函数-linear-gradient-的第一个参数进行限制，参数必须为合法值" class="headerlink" title="3. 对渐变色函数 linear-gradient() 的第一个参数进行限制，参数必须为合法值"></a>3. 对渐变色函数 linear-gradient() 的第一个参数进行限制，参数必须为合法值</h2><ul>
+<li>角度</li>
+<li>to 标识符到一个边或一个角落</li>
+</ul>
+<h3 id="✅-正确例子-2"><a href="#✅-正确例子-2" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to top, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom right, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span><br>.foo &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">1.57rad</span>, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-comment">/* Direction defaults to &quot;to bottom&quot; */</span><br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-2"><a href="#❌-错误例子-2" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(top, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(bottom, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(left, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45</span>, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br><span class="hljs-selector-class">.foo</span> &#123; <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to top top, <span class="hljs-number">#fff</span>, <span class="hljs-number">#000</span>); &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-2"><a href="#StyleLint-规则-2" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;function-linear-gradient-no-nonstandard-direction&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="4-规范声明在-CSS-中字符串不能直接换行，必须使用转义符"><a href="#4-规范声明在-CSS-中字符串不能直接换行，必须使用转义符" class="headerlink" title="4. 规范声明在 CSS 中字符串不能直接换行，必须使用转义符"></a>4. 规范声明在 CSS 中字符串不能直接换行，必须使用转义符</h2><h3 id="✅-正确例子-3"><a href="#✅-正确例子-3" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;first\Asecond&quot;</span>;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;first\\nsecond&quot;</span>;<br>&#125;<br><span class="hljs-selector-attr">[title=<span class="hljs-string">&quot;nothing\</span></span><br><span class="hljs-string"><span class="hljs-selector-attr">  is wrong&quot;</span>]</span> &#123;&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Times New Roman&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-3"><a href="#❌-错误例子-3" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;first</span><br><span class="hljs-string">    second&quot;</span>;<br>&#125;<br><span class="hljs-selector-attr">[title=<span class="hljs-string">&quot;something</span></span><br><span class="hljs-string"><span class="hljs-selector-attr">is probably wrong&quot;</span>]</span> &#123;&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Times</span><br><span class="hljs-string">    New</span><br><span class="hljs-string">    Roman&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-3"><a href="#StyleLint-规则-3" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;string-no-newline&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="5-不能使用未在-CSS-标准中声明的单位"><a href="#5-不能使用未在-CSS-标准中声明的单位" class="headerlink" title="5. 不能使用未在 CSS 标准中声明的单位"></a>5. 不能使用未在 CSS 标准中声明的单位</h2><h3 id="✅-正确例子-4"><a href="#✅-正确例子-4" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">10Px</span>;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">10pX</span>;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">10px</span> + <span class="hljs-number">10px</span>);<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-4"><a href="#❌-错误例子-4" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">10</span>pixels;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">10px</span> + <span class="hljs-number">10</span>pixels);<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-4"><a href="#StyleLint-规则-4" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;unit-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="6-自定义属性不能丢失-var-方法"><a href="#6-自定义属性不能丢失-var-方法" class="headerlink" title="6. 自定义属性不能丢失 var 方法"></a>6. 自定义属性不能丢失 var 方法</h2><h3 id="✅-正确例子-5"><a href="#✅-正确例子-5" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-pseudo">:root</span> &#123; <span class="hljs-attr">--foo</span>: red; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--foo); &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-5"><a href="#❌-错误例子-5" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-pseudo">:root</span> &#123; <span class="hljs-attr">--foo</span>: red; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: --foo; &#125;<br></code></pre></td></tr></table></figure></div>
+<p>StyleLint 规则</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;custom-property-no-missing-var-function&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="7-keyframe-声明中使用-important-会被某些浏览器忽略"><a href="#7-keyframe-声明中使用-important-会被某些浏览器忽略" class="headerlink" title="7. keyframe 声明中使用 !important 会被某些浏览器忽略"></a>7. keyframe 声明中使用 !important 会被某些浏览器忽略</h2><h3 id="✅-正确例子-6"><a href="#✅-正确例子-6" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> foo &#123;<br>  <span class="hljs-selector-tag">from</span> &#123;<br>    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-selector-tag">to</span> &#123;<br>    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-6"><a href="#❌-错误例子-6" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> foo &#123;<br>  <span class="hljs-selector-tag">from</span> &#123;<br>    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-selector-tag">to</span> &#123;<br>    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span> <span class="hljs-meta">!important</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-5"><a href="#StyleLint-规则-5" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;keyframe-declaration-no-important&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="8-在同一个-block-中，这都是开发者的疏忽，因为短规则会覆盖长规则"><a href="#8-在同一个-block-中，这都是开发者的疏忽，因为短规则会覆盖长规则" class="headerlink" title="8. 在同一个 block 中，这都是开发者的疏忽，因为短规则会覆盖长规则"></a>8. 在同一个 block 中，这都是开发者的疏忽，因为短规则会覆盖长规则</h2><h3 id="✅-正确例子-7"><a href="#✅-正确例子-7" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">20px</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">transition-property</span>: opacity; &#125; <span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">1s</span> linear; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">transition-property</span>: opacity; -webkit-<span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">1s</span> linear; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-7"><a href="#❌-错误例子-7" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">transition-property</span>: opacity;<br>  <span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">1s</span> linear;<br>&#125;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">1px</span>;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">3px</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid blue;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-6"><a href="#StyleLint-规则-6" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;declaration-block-no-shorthand-property-overrides&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="9-伪类不能是不规范的"><a href="#9-伪类不能是不规范的" class="headerlink" title="9. 伪类不能是不规范的"></a>9. 伪类不能是不规范的</h2><h3 id="✅-正确例子-8"><a href="#✅-正确例子-8" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> &#123;&#125;<br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> &#123;&#125;<br><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">p</span>) &#123;&#125;<br><span class="hljs-selector-tag">input</span>:-moz-placeholder &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-8"><a href="#❌-错误例子-8" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span>:unknown &#123;&#125;<br><span class="hljs-selector-tag">a</span>:UNKNOWN &#123;&#125;<br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>r &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-7"><a href="#StyleLint-规则-7" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;selector-pseudo-class-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="10-伪元素不能是不规范的"><a href="#10-伪元素不能是不规范的" class="headerlink" title="10. 伪元素不能是不规范的"></a>10. 伪元素不能是不规范的</h2><h3 id="✅-正确例子-9"><a href="#✅-正确例子-9" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:before</span> &#123;&#125;<br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">::before</span> &#123;&#125;<br><span class="hljs-selector-pseudo">::selection</span> &#123;&#125;<br><span class="hljs-selector-tag">input</span>::-moz-placeholder &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-9"><a href="#❌-错误例子-9" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span>::pseudo &#123;&#125;<br><span class="hljs-selector-tag">a</span>::PSEUDO &#123;&#125;<br><span class="hljs-selector-tag">a</span>::element &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-8"><a href="#StyleLint-规则-8" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;selector-pseudo-element-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="11-选择器不能是不规范的"><a href="#11-选择器不能是不规范的" class="headerlink" title="11. 选择器不能是不规范的"></a>11. 选择器不能是不规范的</h2><h3 id="✅-正确例子-10"><a href="#✅-正确例子-10" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">input</span> &#123;&#125;<br><span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span> &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-10"><a href="#❌-错误例子-10" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">unknown &#123;&#125;<br>tag &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-9"><a href="#StyleLint-规则-9" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;selector-type-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="12-媒体特性的名称不能是不规范的"><a href="#12-媒体特性的名称不能是不规范的" class="headerlink" title="12. 媒体特性的名称不能是不规范的"></a>12. 媒体特性的名称不能是不规范的</h2><h3 id="✅-正确例子-11"><a href="#✅-正确例子-11" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">monochrome</span>) &#123;&#125;<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">700px</span>) &#123;&#125;<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">700px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: landscape) &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-11"><a href="#❌-错误例子-11" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (unknown) &#123;&#125;<br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">unknown</span>: <span class="hljs-number">10px</span>) &#123;&#125;<br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (unknown &gt; <span class="hljs-number">10px</span>) &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-10"><a href="#StyleLint-规则-10" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;media-feature-name-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="13-后的规则名不能是不规范的"><a href="#13-后的规则名不能是不规范的" class="headerlink" title="13. @ 后的规则名不能是不规范的"></a>13. @ 后的规则名不能是不规范的</h2><h3 id="✅-正确例子-12"><a href="#✅-正确例子-12" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@charset</span> <span class="hljs-string">&quot;UTF-8&quot;</span>;<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">960px</span>) &#123;&#125;<br><span class="hljs-keyword">@font-feature-values</span> Font One &#123;<br>  <span class="hljs-keyword">@styleset</span> &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-12"><a href="#❌-错误例子-12" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@unknown</span> &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-11"><a href="#StyleLint-规则-11" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;at-rule-no-unknown&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="14-禁用多余的分号"><a href="#14-禁用多余的分号" class="headerlink" title="14. 禁用多余的分号"></a>14. 禁用多余的分号</h2><h3 id="✅-正确例子-13"><a href="#✅-正确例子-13" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;x.css&quot;</span>;<br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">color</span>: pink;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-13"><a href="#❌-错误例子-13" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;x.css&quot;</span>;;<br><br><span class="hljs-selector-tag">a</span> &#123;<br>  ;<span class="hljs-attribute">color</span>: pink;<br>&#125;<br><br><span class="hljs-selector-tag">a</span> &#123;<br>  <span class="hljs-attribute">color</span>: red;<br>&#125;<br>;<br><span class="hljs-selector-tag">b</span> &#123;<br>  <span class="hljs-attribute">color</span>: white;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-12"><a href="#StyleLint-规则-12" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;no-extra-semicolons&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="15-任何-import-规则都必须位于样式表中所有其他有效的-规则和样式规则之前（忽略-charset），否则-import-规则无效"><a href="#15-任何-import-规则都必须位于样式表中所有其他有效的-规则和样式规则之前（忽略-charset），否则-import-规则无效" class="headerlink" title="15. 任何 @import  规则都必须位于样式表中所有其他有效的 @ 规则和样式规则之前（忽略 @charset），否则 @import 规则无效"></a>15. 任何 @import  规则都必须位于样式表中所有其他有效的 @ 规则和样式规则之前（忽略 @charset），否则 @import 规则无效</h2><h3 id="✅-正确例子-14"><a href="#✅-正确例子-14" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;foo.css&#x27;</span>;<br><span class="hljs-selector-tag">a</span> &#123;&#125;<br><br><span class="hljs-keyword">@charset</span> <span class="hljs-string">&#x27;utf-8&#x27;</span>;<br><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;foo.css&#x27;</span>;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-14"><a href="#❌-错误例子-14" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">a &#123;&#125;<br>@import &#x27;foo.css&#x27;;<br><br>@media print &#123;&#125;<br>@import &#x27;foo.css&#x27;;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-13"><a href="#StyleLint-规则-13" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;no-invalid-position-at-import-rule&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="16-不能使用未声明的动画"><a href="#16-不能使用未声明的动画" class="headerlink" title="16. 不能使用未声明的动画"></a>16. 不能使用未声明的动画</h2><h3 id="✅-正确例子-15"><a href="#✅-正确例子-15" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation-name</span>: fancy-slide; &#125;<br><span class="hljs-keyword">@keyframes</span> fancy-slide &#123;&#125;<br><br><span class="hljs-keyword">@keyframes</span> fancy-slide &#123;&#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation-name</span>: fancy-slide; &#125;<br><br><span class="hljs-keyword">@keyframes</span> fancy-slide &#123;&#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation</span>: fancy-slide <span class="hljs-number">2s</span> linear; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-15"><a href="#❌-错误例子-15" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation-name</span>: fancy-slide; &#125;<br><br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation-name</span>: fancccy-slide; &#125;<br><span class="hljs-keyword">@keyframes</span> fancy-slide &#123;&#125;<br><br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">animation</span>: fancy-slide <span class="hljs-number">2s</span> linear; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-14"><a href="#StyleLint-规则-14" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;no-unknown-animations&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="17-CSS-书写顺序，按照合理的顺序书写"><a href="#17-CSS-书写顺序，按照合理的顺序书写" class="headerlink" title="17. CSS 书写顺序，按照合理的顺序书写"></a>17. CSS 书写顺序，按照合理的顺序书写</h2><ol>
+<li>Positioning</li>
+<li>Box Model</li>
+<li>Typography</li>
+<li>Visual</li>
+<li>Animation</li>
+<li>Misc</li>
+</ol>
+<h3 id="✅-正确例子-16"><a href="#✅-正确例子-16" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.declaration-order</span> &#123;<br>  <span class="hljs-comment">/* Positioning */</span><br>  <span class="hljs-attribute">position</span>: absolute;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">10</span>;<br> <br>  <span class="hljs-comment">/* Box Model */</span><br>  <span class="hljs-attribute">display</span>: block;<br>  <span class="hljs-attribute">float</span>: right;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;<br> <br>  <span class="hljs-comment">/* Typography */</span><br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#888</span>;<br>  <span class="hljs-attribute">font</span>: normal <span class="hljs-number">16px</span> Helvetica, sans-serif;<br>  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.3</span>;<br>  <span class="hljs-attribute">text-align</span>: center;<br> <br>  <span class="hljs-comment">/* Visual */</span><br>  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#888</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;<br>  <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;<br> <br>  <span class="hljs-comment">/* Animation */</span><br>  <span class="hljs-attribute">transition</span>: all <span class="hljs-number">1s</span>;<br> <br>  <span class="hljs-comment">/* Misc */</span><br>  user-select: none;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-15"><a href="#StyleLint-规则-15" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;plugin/rational-order&#x27;</span>: [<br>  <span class="hljs-literal">true</span>,<br>  &#123;<br>    <span class="hljs-string">&#x27;border-in-box-model&#x27;</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">&#x27;empty-line-between-groups&#x27;</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">&#x27;no-empty-lines-between-properties&#x27;</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>]<br></code></pre></td></tr></table></figure></div>
+<h2 id="18-声明中禁用-important，使用-important-会导致样式无法覆盖"><a href="#18-声明中禁用-important，使用-important-会导致样式无法覆盖" class="headerlink" title="18. 声明中禁用 important，使用 important 会导致样式无法覆盖"></a>18. 声明中禁用 important，使用 important 会导致样式无法覆盖</h2><h3 id="✅-正确例子-17"><a href="#✅-正确例子-17" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: pink; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-16"><a href="#❌-错误例子-16" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: pink <span class="hljs-meta">!important</span>; &#125;<br><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: pink<span class="hljs-meta">!important</span>; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-16"><a href="#StyleLint-规则-16" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">&#x27;declaration-no-important&#x27;: true<br></code></pre></td></tr></table></figure></div>
+<h2 id="19-检查-font-和-font-family-中是否有重复的属性值，禁止出现重复的-font-属性值"><a href="#19-检查-font-和-font-family-中是否有重复的属性值，禁止出现重复的-font-属性值" class="headerlink" title="19. 检查 font 和 font-family 中是否有重复的属性值，禁止出现重复的 font 属性值"></a>19. 检查 font 和 font-family 中是否有重复的属性值，禁止出现重复的 font 属性值</h2><h3 id="✅-正确例子-18"><a href="#✅-正确例子-18" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">font-family</span>: Times, serif; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-17"><a href="#❌-错误例子-17" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Times&#x27;</span>, Times, serif; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-17"><a href="#StyleLint-规则-17" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">&#x27;<span class="hljs-attribute">font-family</span>-no-duplicate-names&#x27;: true<br></code></pre></td></tr></table></figure></div>
+<h2 id="20-检查声明块中是否存在重复的自定义属性，重复的属性可能导致意料之外的结果"><a href="#20-检查声明块中是否存在重复的自定义属性，重复的属性可能导致意料之外的结果" class="headerlink" title="20. 检查声明块中是否存在重复的自定义属性，重复的属性可能导致意料之外的结果"></a>20. 检查声明块中是否存在重复的自定义属性，重复的属性可能导致意料之外的结果</h2><h3 id="✅-正确例子-19"><a href="#✅-正确例子-19" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attr">--custom-property</span>: pink; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-18"><a href="#❌-错误例子-18" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attr">--custom-property</span>: pink; <span class="hljs-attr">--custom-property</span>: orange; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-18"><a href="#StyleLint-规则-18" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;declaration-block-no-duplicate-custom-properties&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="21-检查是否存在重复的属性"><a href="#21-检查是否存在重复的属性" class="headerlink" title="21. 检查是否存在重复的属性"></a>21. 检查是否存在重复的属性</h2><h3 id="✅-正确例子-20"><a href="#✅-正确例子-20" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: pink; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-19"><a href="#❌-错误例子-19" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span> &#123; <span class="hljs-attribute">color</span>: pink; <span class="hljs-attribute">color</span>: orange; &#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-19"><a href="#StyleLint-规则-19" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;declaration-block-no-duplicate-properties&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="22-在样式表中不能存在相同的导入"><a href="#22-在样式表中不能存在相同的导入" class="headerlink" title="22. 在样式表中不能存在相同的导入"></a>22. 在样式表中不能存在相同的导入</h2><h3 id="✅-正确例子-21"><a href="#✅-正确例子-21" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;a.css&quot;</span>;<br><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;b.css&quot;</span>;<br><br><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&#x27;a.css&#x27;</span>) projection;<br><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&#x27;a.css&#x27;</span>) tv;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-20"><a href="#❌-错误例子-20" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;a.css&#x27;</span>;<br><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;a.css&#x27;</span>;<br><br><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;a.css&quot;</span>);<br><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;a.css&quot;</span>);<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-20"><a href="#StyleLint-规则-20" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&#x27;no-duplicate-at-import-rules&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="23-样式表中不能存在相同的选择器，可能导致样式被覆盖"><a href="#23-样式表中不能存在相同的选择器，可能导致样式被覆盖" class="headerlink" title="23. 样式表中不能存在相同的选择器，可能导致样式被覆盖"></a>23. 样式表中不能存在相同的选择器，可能导致样式被覆盖</h2><h3 id="✅-正确例子-22"><a href="#✅-正确例子-22" class="headerlink" title="✅ 正确例子"></a>✅ 正确例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.foo</span> &#123;<br>  <span class="hljs-selector-class">.foo</span> &#123;&#125;<br>&#125;<br><br><span class="hljs-selector-class">.foo</span> &#123;&#125;<br><span class="hljs-selector-class">.bar</span> &#123;&#125;<br><span class="hljs-selector-class">.foo</span> <span class="hljs-selector-class">.bar</span> &#123;&#125;<br><span class="hljs-selector-class">.bar</span> <span class="hljs-selector-class">.foo</span> &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="❌-错误例子-21"><a href="#❌-错误例子-21" class="headerlink" title="❌ 错误例子"></a>❌ 错误例子</h3><div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.foo</span>,<br><span class="hljs-selector-class">.bar</span>,<br><span class="hljs-selector-class">.foo</span> &#123;&#125;<br><br><span class="hljs-selector-class">.foo</span>, <span class="hljs-selector-class">.bar</span> &#123;&#125;<span class="hljs-selector-class">.bar</span>, <span class="hljs-selector-class">.foo</span> &#123;&#125;<br></code></pre></td></tr></table></figure></div>
+<h3 id="StyleLint-规则-21"><a href="#StyleLint-规则-21" class="headerlink" title="StyleLint 规则"></a>StyleLint 规则</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;no-duplicate-selectors&#x27;</span>: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></div>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">extends</span>: [<br>    <span class="hljs-string">&#x27;stylelint-config-recommended&#x27;</span>,<br>    <span class="hljs-string">&#x27;stylelint-config-rational-order&#x27;</span>,<br>    <span class="hljs-string">&#x27;stylelint-config-prettier&#x27;</span>,<br>  ],<br>  <span class="hljs-attr">rules</span>: &#123;<br>    <span class="hljs-comment">// 不能使用未声明的动画</span><br>    <span class="hljs-string">&#x27;no-unknown-animations&#x27;</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-comment">// 不能在声明中使用important</span><br>    <span class="hljs-string">&#x27;declaration-no-important&#x27;</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 前端 CSS 代码规范</li>
+        <li><strong>作者:</strong> 爱吃猪头爱吃肉</li>
+        <li><strong>创建于:</strong> 2023-04-16 09:03:30</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-04-16 09:28:34
+            </li>
+        
+        <li>
+            <strong>链接:</strong> http://example.com/2023/04/16/css规范/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/web%E5%89%8D%E7%AB%AF/">#web前端</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/css/">#css</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐文章</span>
+  </div>
+  <div class="recommended-article-group"><div class="recommended-article-empty"><img src="https://cdn.lavagolem.xyz/empty.svg" /></div></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/16/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%A0%A1%E9%AA%8C%E9%85%8D%E7%BD%AE/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">前端工程化校验配置</span>
+                                    <span class="post-nav-item">上一篇</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/12/hello-world/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Hello World</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'b03b8da04a47bfc936a2',
+                    clientSecret: '4b9281f5cd36d1539920d154fc24dd6a9adb2613',
+                    repo: 'zsasjy.github.io',
+                    owner: 'zsasjy',
+                    admin: ['zsasjy'],
+                    id: window.location.pathname,
+                    language: 'zh-CN',
+                    labels: ['Gitalk', 'bug', 'documentation', 'question']
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <!-- <div class="toc-title">此页目录</div> -->
+        <div class="page-title">前端 CSS 代码规范</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E5%88%99%EF%BC%88%E5%BC%BA%E5%88%B6%EF%BC%89"><span class="nav-text">规则（强制）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A2%9C%E8%89%B2%E5%BA%94%E7%94%B1-6-%E6%88%96-8-%E4%B8%AA-16-%E8%BF%9B%E5%88%B6%E6%95%B0%E5%AD%97%E8%A1%A8%E7%A4%BA%EF%BC%8C%E9%80%9F%E8%AE%B0%E8%A1%A8%E7%A4%BA%E5%BA%94%E7%94%B1-3-%E6%88%96-4-%E4%B8%AA-16-%E8%BF%9B%E5%88%B6%E6%95%B0%E5%AD%97%E6%9D%A5%E8%A1%A8%E7%A4%BA"><span class="nav-text">1. 颜色应由 6 或 8 个 16 进制数字表示，速记表示应由 3 或 4 个 16 进制数字来表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-grid-%E5%91%BD%E5%90%8D%E5%BF%85%E9%A1%BB%E9%81%B5%E5%BE%AA%E8%A7%84%E8%8C%83"><span class="nav-text">2. grid 命名必须遵循规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-1"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-1"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-1"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AF%B9%E6%B8%90%E5%8F%98%E8%89%B2%E5%87%BD%E6%95%B0-linear-gradient-%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E9%99%90%E5%88%B6%EF%BC%8C%E5%8F%82%E6%95%B0%E5%BF%85%E9%A1%BB%E4%B8%BA%E5%90%88%E6%B3%95%E5%80%BC"><span class="nav-text">3. 对渐变色函数 linear-gradient() 的第一个参数进行限制，参数必须为合法值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-2"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-2"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-2"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%A7%84%E8%8C%83%E5%A3%B0%E6%98%8E%E5%9C%A8-CSS-%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E6%8D%A2%E8%A1%8C%EF%BC%8C%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8%E8%BD%AC%E4%B9%89%E7%AC%A6"><span class="nav-text">4. 规范声明在 CSS 中字符串不能直接换行，必须使用转义符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-3"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-3"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-3"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E6%9C%AA%E5%9C%A8-CSS-%E6%A0%87%E5%87%86%E4%B8%AD%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8D%95%E4%BD%8D"><span class="nav-text">5. 不能使用未在 CSS 标准中声明的单位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-4"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-4"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-4"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E4%B8%8D%E8%83%BD%E4%B8%A2%E5%A4%B1-var-%E6%96%B9%E6%B3%95"><span class="nav-text">6. 自定义属性不能丢失 var 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-5"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-5"><span class="nav-text">❌ 错误例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-keyframe-%E5%A3%B0%E6%98%8E%E4%B8%AD%E4%BD%BF%E7%94%A8-important-%E4%BC%9A%E8%A2%AB%E6%9F%90%E4%BA%9B%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BF%BD%E7%95%A5"><span class="nav-text">7. keyframe 声明中使用 !important 会被某些浏览器忽略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-6"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-6"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-5"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA-block-%E4%B8%AD%EF%BC%8C%E8%BF%99%E9%83%BD%E6%98%AF%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E7%96%8F%E5%BF%BD%EF%BC%8C%E5%9B%A0%E4%B8%BA%E7%9F%AD%E8%A7%84%E5%88%99%E4%BC%9A%E8%A6%86%E7%9B%96%E9%95%BF%E8%A7%84%E5%88%99"><span class="nav-text">8. 在同一个 block 中，这都是开发者的疏忽，因为短规则会覆盖长规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-7"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-7"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-6"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E4%BC%AA%E7%B1%BB%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84"><span class="nav-text">9. 伪类不能是不规范的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-8"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-8"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-7"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-%E4%BC%AA%E5%85%83%E7%B4%A0%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84"><span class="nav-text">10. 伪元素不能是不规范的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-9"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-9"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-8"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84"><span class="nav-text">11. 选择器不能是不规范的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-10"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-10"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-9"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-%E5%AA%92%E4%BD%93%E7%89%B9%E6%80%A7%E7%9A%84%E5%90%8D%E7%A7%B0%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84"><span class="nav-text">12. 媒体特性的名称不能是不规范的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-11"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-11"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-10"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-%E5%90%8E%E7%9A%84%E8%A7%84%E5%88%99%E5%90%8D%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84"><span class="nav-text">13. @ 后的规则名不能是不规范的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-12"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-12"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-11"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-%E7%A6%81%E7%94%A8%E5%A4%9A%E4%BD%99%E7%9A%84%E5%88%86%E5%8F%B7"><span class="nav-text">14. 禁用多余的分号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-13"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-13"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-12"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-%E4%BB%BB%E4%BD%95-import-%E8%A7%84%E5%88%99%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BD%8D%E4%BA%8E%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%B6%E4%BB%96%E6%9C%89%E6%95%88%E7%9A%84-%E8%A7%84%E5%88%99%E5%92%8C%E6%A0%B7%E5%BC%8F%E8%A7%84%E5%88%99%E4%B9%8B%E5%89%8D%EF%BC%88%E5%BF%BD%E7%95%A5-charset%EF%BC%89%EF%BC%8C%E5%90%A6%E5%88%99-import-%E8%A7%84%E5%88%99%E6%97%A0%E6%95%88"><span class="nav-text">15. 任何 @import  规则都必须位于样式表中所有其他有效的 @ 规则和样式规则之前（忽略 @charset），否则 @import 规则无效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-14"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-14"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-13"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E6%9C%AA%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="nav-text">16. 不能使用未声明的动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-15"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-15"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-14"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-CSS-%E4%B9%A6%E5%86%99%E9%A1%BA%E5%BA%8F%EF%BC%8C%E6%8C%89%E7%85%A7%E5%90%88%E7%90%86%E7%9A%84%E9%A1%BA%E5%BA%8F%E4%B9%A6%E5%86%99"><span class="nav-text">17. CSS 书写顺序，按照合理的顺序书写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-16"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-15"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-%E5%A3%B0%E6%98%8E%E4%B8%AD%E7%A6%81%E7%94%A8-important%EF%BC%8C%E4%BD%BF%E7%94%A8-important-%E4%BC%9A%E5%AF%BC%E8%87%B4%E6%A0%B7%E5%BC%8F%E6%97%A0%E6%B3%95%E8%A6%86%E7%9B%96"><span class="nav-text">18. 声明中禁用 important，使用 important 会导致样式无法覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-17"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-16"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-16"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-%E6%A3%80%E6%9F%A5-font-%E5%92%8C-font-family-%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E9%87%8D%E5%A4%8D%E7%9A%84%E5%B1%9E%E6%80%A7%E5%80%BC%EF%BC%8C%E7%A6%81%E6%AD%A2%E5%87%BA%E7%8E%B0%E9%87%8D%E5%A4%8D%E7%9A%84-font-%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="nav-text">19. 检查 font 和 font-family 中是否有重复的属性值，禁止出现重复的 font 属性值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-18"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-17"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-17"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-%E6%A3%80%E6%9F%A5%E5%A3%B0%E6%98%8E%E5%9D%97%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%EF%BC%8C%E9%87%8D%E5%A4%8D%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E6%84%8F%E6%96%99%E4%B9%8B%E5%A4%96%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-text">20. 检查声明块中是否存在重复的自定义属性，重复的属性可能导致意料之外的结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-19"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-18"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-18"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">21. 检查是否存在重复的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-20"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-19"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-19"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-%E5%9C%A8%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%AD%E4%B8%8D%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AF%BC%E5%85%A5"><span class="nav-text">22. 在样式表中不能存在相同的导入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-21"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-20"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-20"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%AD%E4%B8%8D%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E6%A0%B7%E5%BC%8F%E8%A2%AB%E8%A6%86%E7%9B%96"><span class="nav-text">23. 样式表中不能存在相同的选择器，可能导致样式被覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%AD%A3%E7%A1%AE%E4%BE%8B%E5%AD%90-22"><span class="nav-text">✅ 正确例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9D%8C-%E9%94%99%E8%AF%AF%E4%BE%8B%E5%AD%90-21"><span class="nav-text">❌ 错误例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StyleLint-%E8%A7%84%E5%88%99-21"><span class="nav-text">StyleLint 规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">配置文件</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">爱吃猪头爱吃肉</a>
+        </div>
+        
+       
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/4/14 12:00:00
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">不知道需要写点啥</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
