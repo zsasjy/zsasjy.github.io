@@ -5612,6 +5612,18 @@ pre .deletion {
 .page-template-container .friends-link-container .friends-link-list .friends-link-item:nth-child(even) {
   padding-left: 8px;
 }
+.page-template-container .friends-link-container .friends-link-list .friends-link-item .tag {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  width: fit-content;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  height: 18px;
+  font-size: 14px;
+  line-height: 18px;
+  background: #f7f7f7;
+}
 .page-template-container .friends-link-container .friends-link-list .friends-link-item .content {
   position: relative;
   width: 100%;
