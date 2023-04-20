@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="爱吃猪头爱吃肉">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/04/21/browser架构/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="浏览器架构与渲染原理 浏览器架构主流浏览器及其内核主流浏览器 全球份额占比   内核 浏览器内核表示浏览器渲染引擎(排版引擎)，渲染引擎决定了浏览器如何显示网页的内容以及页面的格式信息,从而导致了不同内核展示内容不一致。     浏览器名称 浏览器内核    Chrome Webkit -&gt; Blink   Firefox Gecko   IE(已停止更新) Trident   Opera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器架构">
+<meta property="og:url" content="http://example.com/2023/04/21/Browser%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="浏览器架构与渲染原理 浏览器架构主流浏览器及其内核主流浏览器 全球份额占比   内核 浏览器内核表示浏览器渲染引擎(排版引擎)，渲染引擎决定了浏览器如何显示网页的内容以及页面的格式信息,从而导致了不同内核展示内容不一致。     浏览器名称 浏览器内核    Chrome Webkit -&gt; Blink   Firefox Gecko   IE(已停止更新) Trident   Opera">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjczMDVmNWNlYWUzMWQ0MjA3YWU2NjVhZWJkOGZlY2NfN25TWndRVTZrcDJvRzd1RzlQczNlanFIdjVubDdFMXZfVG9rZW46Ym94Y25UN2dyQUN1azNlVnhUTFJ6dTh3TmNzXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjEwY2RlZjRiYTQ1OGFiMjU1MTg5NDBhM2ZhYWEyMWRfSXlZVExIODhvcXBYZTd1TGNJOGZ2Q1p6QXZPWGtBNWRfVG9rZW46Ym94Y25DOHFMd2xIZEx1bGlnc3pIUjdNM0JoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE2NWY0ZDVkMmViYTU2ZGFiZjhkNmZhODhmOWE4MmZfTnp5UFZIS1JYZThGTGZRTTE5dVNvVlZMMGpoTE5SWVRfVG9rZW46Ym94Y25hOElXaTJDY2x5MmR1NEMzUDNkS0JlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTY5ZDJhMDBhZmJmNzk0NTJhNWM5YjI2ODJhODdkMGJfMHZoQ1NpcDBGSkFjd3N0Q3lHNGZVbzRvVERkWU9HM3FfVG9rZW46Ym94Y25CTHZydHhFcXJNcEZBR3ZyQXBDVFJoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTk4NzQwM2U4OGFiY2EyNTI1N2VmMDkxZjhkMDQyZmZfZ0ZkelVGZVp4dDdCWmtpVWI3MkJuSldNd0p4NXRDOXVfVG9rZW46Ym94Y25VV0dLMDRQTXR5QWt2ZmlnNE1JVFpmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjdjMWJhYmEwODI3YTBiNmViYWI0YWIxM2VmZGI3YzdfdEhGNXNJM1ZoMFNUa2FVZlJGMmgyclY5anU4VTNWSmRfVG9rZW46Ym94Y256RndaOEZZOEZmSXFTZ3JRTkp0ZTVZXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=M2U4MWY2MmE4NGE5MjY5MmQ3MDQyMmI5ODU3Mjk4NzBfTk9IclpsYmpvd3lpREtzT2JDMWJrSDVxekhvczEyRWFfVG9rZW46Ym94Y25Qb2xvS0RydHBsVHFUSHUxb0ZKZkZjXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MmUxZGUwMDg2ODMzYzA5YzY0MmFkMDJkNjYwNzhiM2FfUUgxZVZYTFppeUtEUkZyMUFFUUhZN0pZR3JraTlsWm1fVG9rZW46Ym94Y25aVTFxRXM2bXBacEZFWkQ4YUQ0cndlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjNlMWM4ZTg5MThjNTk1ZWY5MjczMjgzOTdlMmE3MjRfTHVDemVyV0xKRU01SUtrQnc5NmxydGtqRFBMbld6YllfVG9rZW46Ym94Y25sVWtFYU80VVFBOHVLUWhiOEJwcXNjXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MmEzYTEzMTRjNjQ2NDU0ZTZiNjA4MWIzZTExMWMxMGVfSXY2Wkw1SWgxUW1ONnRqUFNQaXJmbHpKZjVHbmEwZEtfVG9rZW46Ym94Y25Ca0pxNldTOWt2cnZWRGhrV0ZCYTliXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWY0OGE0MjI1MjY3MjE5OTgwM2E2YTZmYmI3N2ExMTlfQkE4WlBlS1R0ZXRSR0RVQmxOWTYzZHVQNll0ZlJ0SjZfVG9rZW46Ym94Y25kZlhSaUYxTTB5eHZiWVYxbk1mVVlnXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzhhMDZjYWM3Nzg5MWUxODFmMzEwNjFhYzQyMDZkODNfeVFUU1NYVVhCTmdCZ29kTHU2M3p0WU5tVEVQaDVvT2hfVG9rZW46Ym94Y24zOUdNUko1REhEaDUyYnBkMkZOY1JkXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2U1OTNiNGQyNTY2ZjQzM2RmODU1ZjgxNDg3Nzk0NzJfU0dGb2JjclR5YkxPNlRFdUZtcUtyV2YwQkNaNDRJcVFfVG9rZW46Ym94Y244UjdQUWx3S0RNU0lpaVluVEJmR1BkXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=OGY3MjJjYTY0YWE1ZTdlNjUxY2ZkZGI2ZTU1NWRjMmNfUmFwUXJzck9yUGNUaDBPc3dBWnFHSDFhSmZwZHFycDlfVG9rZW46Ym94Y25sTlVRemVaVzFjM3h2OTlPZkxOc3llXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2M5NjAxNDk1NTBhNTY3NGQ0NWNkNWRhYWEzNjI4ZTFfV0F1NWxmemdGTnhZaEljYWEwaGhiTjNGcG5jdENEUUZfVG9rZW46Ym94Y25td0NkTVljMGFObUJvWDRHbXY3TEhoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTQ4OGM5ODVkNTZkMWUxNWUyNGRiOTAyM2NlMTAyNjFfSXhCUWtvbnhJbU4yNVhEQ2FaY2JCRElxc0phWmFrMXZfVG9rZW46Ym94Y245WlBaVjFrWmdEcHJlSFF6U09aVGRnXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MDc4M2ZiODA0YTYwM2E3ZDg5ZjZmMDk0NmFlMmI0ODlfTGpiMUxPTUY4NUREN2FuOFZpTFlDOHNjdFhzeGlJaWlfVG9rZW46Ym94Y25qTzFaNUlReVV1V3ZvOTNlSWlZa3pmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YTA5M2JkZTY1MzViZjRiZjY5YWZkYjkwMmYwNzIwMjBfQUxkVVV0OUU4VWd1cnd1SEJxS0dzcFllYll1UjRHRmtfVG9rZW46Ym94Y25WZUdSNllCdHhOZ0FFU3BWdmNZak1jXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWJlYzc3NzdhYzZkYjBlNWU0MWRjNTc5YTkwNWQwMTBfTWRKWmJ1ZmdQQnRLSWpReHZDSjhxWEg2RjQ1SWlqZ0NfVG9rZW46Ym94Y25ReDZncHFKYXFNZUdVc3JoTDVqNzJpXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzcwOTQ0MjZhNzg2YzNkMmUzNzA1NWNmZThiZWRlZTRfUVpQTWgwWm5wZUN2VDlFQlBSZlpLOThVU2JReFA1VzZfVG9rZW46Ym94Y25kNHkyTnpjaWRFbXRWMEZTNXpOYVZlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzczZGIyODYyMWExZDNmY2Q5YTVhZTgwMjVjMzYyMzdfMlZ5dGFETEVBbUhDWHBST1U0TEhZZWQyY3VzYnhWcWRfVG9rZW46Ym94Y25Nc2VhbmtXdWI5TkJYdkN1VXczelJXXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ODU4OTYyZWUwMTg1NGU2N2YwNzVlYzU3MjIzYzZhZmFfeEQ0bTlBNEJHUTdJb1RGc0FVbDhWcG9SVDRlSk9rMFlfVG9rZW46Ym94Y25PREtIZjNtN3l3Y0pOTlo4R1BDcE5oXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTdmMDcwNjMwODFhNGRmMTEyOGY3ZmIyOTIxMzkwNDFfcFY0WlZZSVZUSFJablRQZjJQd25FVkxqS2txbzhDVkxfVG9rZW46Ym94Y25FMkNWb3NmcUc4d1NpRGVOcER5ZGFiXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NDIwOTU4ODMxMjU2MGU4ZjE0MzhlYTI2NWE2ODk4ZWZfZ3Q1UHByNmdob1NDaW1KeGJqZkxOQ0xYclF4cWJKUWlfVG9rZW46Ym94Y25DQ3pwNWEwc2t3WjlkZDExUXk0UTF4XzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ODFlZGIyN2U0ZDkyOGQ5YmZkYmJkZGE0MGYzMGMxMDdfZEVEMDJOeUtLUzhab0JYNjFaMUFQWXZXaVQwelp2aDNfVG9rZW46Ym94Y24xS2hpbWFCVHQ1RlVxYW50TU5lcFRmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDEyMTMyNTVhZTVmOGUzMmRmY2FkMjBkM2RjZDY0YmJfZEdZSHFOcUZOajhPSklBTWdVc0VTeTBJSnJZeWVLd3BfVG9rZW46Ym94Y25LRmc0QjRVSGJ0bm41RmpManJEcm5mXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDY3NjE2Nzg2YzgyZWMxZTBkZDJiOWY5MmQ0OGZmZDZfSUdYZk5yVjV0SGpJeHZFdGlyZFROWmlwSEhzczJqcVFfVG9rZW46Ym94Y25XT3lVeUpiRDdpZ2paR3BRcTBPWVBlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+<meta property="article:published_time" content="2023-04-20T23:29:28.000Z">
+<meta property="article:modified_time" content="2023-04-20T23:31:44.770Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="浏览器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjczMDVmNWNlYWUzMWQ0MjA3YWU2NjVhZWJkOGZlY2NfN25TWndRVTZrcDJvRzd1RzlQczNlanFIdjVubDdFMXZfVG9rZW46Ym94Y25UN2dyQUN1azNlVnhUTFJ6dTh3TmNzXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#CC9933">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            浏览器架构 -
+        
+        Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true,"enabled":true},"author_label":{"enable":false,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":4,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐文章","limit":5,"placeholder":"/images/b3eb9d03e5704f619f3fe55d809568ce.jpg","skip_dirs":[]}},"colors":{"primary":"#CC9933","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"chinese":{"enable":true,"family":"KaiTi"}},"home_banner":{"enable":true,"image":{"light":"https://cdn.lavagolem.xyz/a26f66658e014e06aa70e2753742bef3.jpg","dark":"https://cdn.lavagolem.xyz/c071cdc46f0c4867a1d52d0cb51fc6d6.jpg"},"title":"爱吃猪头爱吃肉","subtitle":{"text":["我不说话，就没人知道我是菜鸡!",""],"typing_speed":200,"backing_speed":500,"starting_delay":200,"backing_delay":200,"loop":true,"smart_backspace":true},"text_color":{"light":"#FFFFFF","dark":"#FFFFFF"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"KaiTi","url":null},"social_links":{"enable":false,"links":{"github":["https://github.com/zsasjy"],"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":20},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"TAGS":{"path":"/tags","icon":"fa-regular fa-tag"},"ESSAY":{"path":"/essay","icon":"fa-regular fa-comment-pen"},"LINKS":{"path":"/links","icon":"fa-regular fa-link"},"ABOUT":{"path":"/about","icon":"fa-regular fa-user"},"OTHER":{"icon":"fa-regular fa-diagram-project","submenus":{"Tboot":"http://plus.hutool.cn:8080/","CustomNav":"https://nav.hutool.cn/?type=mini"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"right","announcement":"简单上线一版，后续接着改","links":null,"announcementtitle":"公告"},"article_date_format":"YYYY-MM-DD HH:mm:ss","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<!-- 引用 artitalk -->
+<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tag"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/essay"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-comment-pen"></i>
+                                        
+                                        随笔
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/about"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-diagram-project"></i>
+                                        
+                                        其他&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="http://plus.hutool.cn:8080/">TBOOT
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://nav.hutool.cn/?type=mini">自定义导航
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tag"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/essay"  >
+                             
+                                
+                                    <i class="fa-regular fa-comment-pen"></i>
+                                
+                                随笔
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/about"  >
+                             
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-diagram-project"></i>
+                                
+                                其他&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="http://plus.hutool.cn:8080/">TBOOT</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://nav.hutool.cn/?type=mini">自定义导航</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">浏览器架构</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://cdn.lavagolem.xyz/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">爱吃猪头爱吃肉</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-21 07:29:28</span>
+        <span class="mobile">2023-04-21 07:29</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-04-21 07:31:44</span>
+            <span class="mobile">2023-04-21 07:31</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 分钟</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>浏览器架构与渲染原理</p>
+<h1 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h1><h1 id="主流浏览器及其内核"><a href="#主流浏览器及其内核" class="headerlink" title="主流浏览器及其内核"></a>主流浏览器及其内核</h1><h2 id="主流浏览器"><a href="#主流浏览器" class="headerlink" title="主流浏览器"></a>主流浏览器</h2><blockquote>
+<p>全球份额占比</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjczMDVmNWNlYWUzMWQ0MjA3YWU2NjVhZWJkOGZlY2NfN25TWndRVTZrcDJvRzd1RzlQczNlanFIdjVubDdFMXZfVG9rZW46Ym94Y25UN2dyQUN1azNlVnhUTFJ6dTh3TmNzXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><blockquote>
+<p>浏览器内核表示浏览器<strong>渲染引擎</strong>(排版引擎)，渲染引擎决定了浏览器如何显示网页的内容以及页面的格式信息,从而导致了不同内核展示内容不一致。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>浏览器名称</th>
+<th>浏览器内核</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome</td>
+<td>Webkit -&gt; Blink</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>Gecko</td>
+</tr>
+<tr>
+<td>IE(已停止更新)</td>
+<td>Trident</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>Presto -&gt; Blink</td>
+</tr>
+<tr>
+<td>Safiri</td>
+<td>Webkit</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>EdgeHTML（chromium）</td>
+</tr>
+</tbody></table>
+<h1 id="chrome浏览器设计"><a href="#chrome浏览器设计" class="headerlink" title="chrome浏览器设计"></a>chrome浏览器设计</h1><h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><ul>
+<li><strong>进程：</strong>表示具有独立功能的程序关于某个数据集合的一次活动，简单理解就是进行中的程序，当应用被启动时就会创建对应的进程。</li>
+<li><strong>线程：</strong>是操作系统能够进行调度的最小单位。通常在一个进程中可以包含若干个线程。程序可以利用线程去辅助进程的执行。</li>
+<li><strong>协程：</strong>协程是一种比线程更加轻量级的存在。你可以把协程看成是跑在线程上的任务，<strong>一个线程上可以存在多个协程，但是在线程上同时只能执行一个协程，async&#x2F;await就是利用协程实现的。</strong></li>
+</ul>
+<h2 id="浏览器的进程发展史"><a href="#浏览器的进程发展史" class="headerlink" title="浏览器的进程发展史"></a>浏览器的进程发展史</h2><h3 id="单进程架构"><a href="#单进程架构" class="headerlink" title="单进程架构"></a>单进程架构</h3><p>（听说）在2007年之前的浏览器都是采用单进程架构，将所有的功能都放在一个进程下，如 网络、插件、js执行、渲染等去全部功能，这就会导致当导致单进程浏览器不稳定、不流畅和不安全的</p>
+<ul>
+<li>不稳定：插件，脚本，页面的内存泄露</li>
+<li>不安全：插件、页面脚本</li>
+</ul>
+<h3 id="多进程架构"><a href="#多进程架构" class="headerlink" title="多进程架构"></a>多进程架构</h3><p>将原本的单进程中的模块，改为多进程。从而保证了浏览器的稳定性，不会由于单一问题导致整个浏览器不能用。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjEwY2RlZjRiYTQ1OGFiMjU1MTg5NDBhM2ZhYWEyMWRfSXlZVExIODhvcXBYZTd1TGNJOGZ2Q1p6QXZPWGtBNWRfVG9rZW46Ym94Y25DOHFMd2xIZEx1bGlnc3pIUjdNM0JoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>借助操作系统对进程安全的控制，浏览器可以将页面放置在沙箱中，站点的代码可以运行在隔离的环境中，保证核心进程的安全。</p>
+<p>虽然多进程的架构优于单进程架构，但由于进程独享自己的私有内存，以渲染进程为例，虽然渲染的站点不同，但工作内容大体相似，为了完成渲染工作它们会在自己的内存中包含相同的功能，例如 V8 引擎（用于解析和运行 Javascript），这意味着这部分相同的功能需要占用每个进程的内存空间。为了节省内存，Chrome 限制了最大进程数，最大进程数取决于硬件的能力，同时<strong>当使用多个页签访问相同的站点时浏览器不会创建新的渲染进程</strong>。采用多进程的好处: </p>
+<ol>
+<li>避免单个页面崩溃影响整个浏览器</li>
+<li>避免第三方插件崩溃时影响整个浏览器</li>
+<li>多进程充分利用多核优势</li>
+<li>方便使用沙盒模型隔离插件等进程，提高浏览器稳定性</li>
+</ol>
+<p><strong>当我们在地址栏中输入一个地址时，浏览器进程中的 UI 线程最先得知这个动作，并开始处理。</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE2NWY0ZDVkMmViYTU2ZGFiZjhkNmZhODhmOWE4MmZfTnp5UFZIS1JYZThGTGZRTTE5dVNvVlZMMGpoTE5SWVRfVG9rZW46Ym94Y25hOElXaTJDY2x5MmR1NEMzUDNkS0JlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h4 id="浏览器进程（Browser-process）"><a href="#浏览器进程（Browser-process）" class="headerlink" title="浏览器进程（Browser process）"></a>浏览器进程<strong>（Browser process）</strong></h4><p><strong>浏览器进程</strong>做为 Chrome 中最核心的进程，负责管理 Chrome 应用本身，包括地址栏、书签、前进和后退按钮。同时也负责可不见的功能，比如网络请求、文件按访问等，也负责其他进程的调度。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTY5ZDJhMDBhZmJmNzk0NTJhNWM5YjI2ODJhODdkMGJfMHZoQ1NpcDBGSkFjd3N0Q3lHNGZVbzRvVERkWU9HM3FfVG9rZW46Ym94Y25CTHZydHhFcXJNcEZBR3ZyQXBDVFJoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h4 id="网络进程（Network-process）"><a href="#网络进程（Network-process）" class="headerlink" title="网络进程（Network process）"></a>网络进程<strong>（Network process）</strong></h4><p><strong>网络进程</strong>主要负责页面的网络资源加载，之前是作为一个模块运行在浏览器进程里面，现在独立开来，成为一个单独的进程</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTk4NzQwM2U4OGFiY2EyNTI1N2VmMDkxZjhkMDQyZmZfZ0ZkelVGZVp4dDdCWmtpVWI3MkJuSldNd0p4NXRDOXVfVG9rZW46Ym94Y25VV0dLMDRQTXR5QWt2ZmlnNE1JVFpmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h4 id="渲染进程（Renderer-process）"><a href="#渲染进程（Renderer-process）" class="headerlink" title="渲染进程（Renderer process）"></a>渲染进程<strong>（Renderer process）</strong></h4><p><strong>渲染进程</strong>负责文档的渲染，其中也包括 JavaScript 代码的运行，页面布局绘制，web worker 的管理等。渲染进程是基于站点隔离的，也就是说每个tab页的内容相互隔离，互不影响。但是可以利用 iframe 可以在同一个页面访问不同站点的资源，但从安全的角度考虑，同源策略不允许一个站点在未得到同意的情况下访问其他站点的资源，所以从 Chrome 67 开始默认启用独立的渲染进程处理每个站点。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjdjMWJhYmEwODI3YTBiNmViYWI0YWIxM2VmZGI3YzdfdEhGNXNJM1ZoMFNUa2FVZlJGMmgyclY5anU4VTNWSmRfVG9rZW46Ym94Y256RndaOEZZOEZmSXFTZ3JRTkp0ZTVZXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h4 id="GPU进程（GPU-process）"><a href="#GPU进程（GPU-process）" class="headerlink" title="GPU进程（GPU process）"></a>GPU进程<strong>（GPU process）</strong></h4><p><strong>GPU进程</strong>最开始的时候chrome仅仅使用GPU实现CSS的3D动画效果，但由于随后网页、Chrome 的 UI 界面都选择采用 GPU 来绘制因此chrome增加了GPU进程。主要是使用显卡硬件加速，提高你网页浏览的体验，并且最多只会开启一个，常用于<code>3d</code>绘制，使用<code>chrome://flags/#ignore-gpu-blocklist</code> 开启实验性的加速，<code>chrome://gpu/</code>查看是否加速了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=M2U4MWY2MmE4NGE5MjY5MmQ3MDQyMmI5ODU3Mjk4NzBfTk9IclpsYmpvd3lpREtzT2JDMWJrSDVxekhvczEyRWFfVG9rZW46Ym94Y25Qb2xvS0RydHBsVHFUSHUxb0ZKZkZjXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h4 id="插件进程（Plugin-process）"><a href="#插件进程（Plugin-process）" class="headerlink" title="插件进程（Plugin process）"></a>插件进程<strong>（Plugin process）</strong></h4><p><strong>插件进程</strong>负责为浏览器提供各种插件功能，例如 <code>React Developer Tools</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MmUxZGUwMDg2ODMzYzA5YzY0MmFkMDJkNjYwNzhiM2FfUUgxZVZYTFppeUtEUkZyMUFFUUhZN0pZR3JraTlsWm1fVG9rZW46Ym94Y25aVTFxRXM2bXBacEZFWkQ4YUQ0cndlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h1 id="从输入url到页面的展示"><a href="#从输入url到页面的展示" class="headerlink" title="从输入url到页面的展示"></a>从输入url到页面的展示</h1><h2 id="处理输入内容"><a href="#处理输入内容" class="headerlink" title="处理输入内容"></a>处理输入内容</h2><p>主进程的UI线程会根据你的输入，去判断输入的是个url地址还是其他的内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MjNlMWM4ZTg5MThjNTk1ZWY5MjczMjgzOTdlMmE3MjRfTHVDemVyV0xKRU01SUtrQnc5NmxydGtqRFBMbld6YllfVG9rZW46Ym94Y25sVWtFYU80VVFBOHVLUWhiOEJwcXNjXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>如果输入内容不是域名且不带有浏览器能够标识的信息时，则调用浏览器中设置的默认搜索引擎，<strong>获取查询网址</strong>。比如百度查询aaa的结果为<code>https://www.baidu.com/s?ie=UTF-8&amp;wd=aaaa</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MmEzYTEzMTRjNjQ2NDU0ZTZiNjA4MWIzZTExMWMxMGVfSXY2Wkw1SWgxUW1ONnRqUFNQaXJmbHpKZjVHbmEwZEtfVG9rZW46Ym94Y25Ca0pxNldTOWt2cnZWRGhrV0ZCYTliXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p><strong>浏览器地址栏能够识别的信息</strong></p>
+<ul>
+<li>本地文件地址：<code>file:///Users/user/test``/index.html</code></li>
+<li>浏览器内部功能: <code>chrome://xxxx</code> 如浏览器插件管理页面<code>chrome://extensions</code>，以及插件页面等</li>
+</ul>
+<h2 id="发起网络请求"><a href="#发起网络请求" class="headerlink" title="发起网络请求"></a>发起网络请求</h2><p>当主进程的UI线程识别输入的内容为<strong>url</strong> 或 经过搜索引擎转的<strong>查询网址</strong>，则开启网络进程辅助完成网络请求。</p>
+<ol>
+<li><strong>DNS解析</strong>获取资源地址与端口号</li>
+<li><strong>TCP链接</strong>尝试链接资源服务器进行3次握手</li>
+<li><strong>HTTPS链接</strong>获取网络资源</li>
+</ol>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>当服务器返回给浏览器重定向响应时如返回301、302状态码时，网络进程会通知<strong>主进程的UI 线程</strong>需要重定向，然后会以新的地址重新请求资源。</p>
+<h2 id="处理响应数据"><a href="#处理响应数据" class="headerlink" title="处理响应数据"></a>处理响应数据</h2><p>网络进程接受到资源数据时，会从响应头中获取资源的<strong>content-type</strong>，以便于识别资源类型，如果发现响应头中<code>content-type</code>结果为<strong>text&#x2F;html; charset&#x3D;utf-8</strong>，则会将数据传递给<strong>渲染进程进行</strong>下一步的处理，如果访问资源是其他文件类型时，浏览器则会将文件传给下载管理器，在进行是预览还是下载等操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWY0OGE0MjI1MjY3MjE5OTgwM2E2YTZmYmI3N2ExMTlfQkE4WlBlS1R0ZXRSR0RVQmxOWTYzZHVQNll0ZlJ0SjZfVG9rZW46Ym94Y25kZlhSaUYxTTB5eHZiWVYxbk1mVVlnXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>在将数据传给渲染进程之前，网络进程会先对数据进行检查，防止数据来自于不安全的网站，如（你懂得），<strong>如果发现数据是不安全的，浏览器则会提示访问站点不安全等信息</strong>。 </p>
+<p>同时<strong>网络进程利用CORB（Cross Origin Read Blocking）预防跨域问题</strong>，防止敏感数据传给渲染进程</p>
+<ul>
+<li>CORB 是一种判断是否要在跨站资源数据到达页面之前阻断其到达当前站点进程中的算法，降低了敏感数据暴露的风险</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzhhMDZjYWM3Nzg5MWUxODFmMzEwNjFhYzQyMDZkODNfeVFUU1NYVVhCTmdCZ29kTHU2M3p0WU5tVEVQaDVvT2hfVG9rZW46Ym94Y24zOUdNUko1REhEaDUyYnBkMkZOY1JkXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h2 id="开始渲染"><a href="#开始渲染" class="headerlink" title="开始渲染"></a>开始渲染</h2><p>当网络进程请求到数据并对数据检查完毕，并确认数据没毛病后。那么此时网络进程就可以通知浏览器主进程中的UI线程可以开始渲染了，UI线程就会根据当前站点去查找或启动一个渲染进程，完成渲染。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2U1OTNiNGQyNTY2ZjQzM2RmODU1ZjgxNDg3Nzk0NzJfU0dGb2JjclR5YkxPNlRFdUZtcUtyV2YwQkNaNDRJcVFfVG9rZW46Ym94Y244UjdQUWx3S0RNU0lpaVluVEJmR1BkXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>值得注意的是，UI线程将请求地址给网络进程之后，网络进程发送请求到接收到响应是需要一段时间的。浏览器为了更高效的进行处理，<strong>此时的UI线程会尝试查找或者开启一个渲染进程，这个行为与网络进程处理网络请求是同时进行的。</strong>如果网络进程按照预期获取到了资源数据并检测完毕就可以通知渲染进程进行渲染了，<strong>如果发生了重定向，则提前初始化好的渲染进程有可能不会被使用。</strong> </p>
+<h2 id="渲染进行中"><a href="#渲染进行中" class="headerlink" title="渲染进行中"></a>渲染进行中</h2><h3 id="浏览器进程做的事情"><a href="#浏览器进程做的事情" class="headerlink" title="浏览器进程做的事情"></a>浏览器进程做的事情</h3><p>当网络进程获取到数据，当渲染进程初始化完毕，此时浏览器主进程的UI线程会利用主进程通过IPC通信，将本次访问传递给渲染进程。同时也保证渲染进程在渲染途中，依然可以从网络进程中获取到其他资源数据。</p>
+<p>这个时候浏览器的地址栏出现安全图标，同时显示出请求地址。浏览器的历史记录（history）中会添加该条信息。为了快速访问该条信息，会将访问记录存储到硬盘中。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=OGY3MjJjYTY0YWE1ZTdlNjUxY2ZkZGI2ZTU1NWRjMmNfUmFwUXJzck9yUGNUaDBPc3dBWnFHSDFhSmZwZHFycDlfVG9rZW46Ym94Y25sTlVRemVaVzFjM3h2OTlPZkxOc3llXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2M5NjAxNDk1NTBhNTY3NGQ0NWNkNWRhYWEzNjI4ZTFfV0F1NWxmemdGTnhZaEljYWEwaGhiTjNGcG5jdENEUUZfVG9rZW46Ym94Y25td0NkTVljMGFObUJvWDRHbXY3TEhoXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h3 id="渲染进程做的事情"><a href="#渲染进程做的事情" class="headerlink" title="渲染进程做的事情"></a>渲染进程做的事情</h3><p>查看后续渲染进程执行过程</p>
+<h2 id="页面加载完毕"><a href="#页面加载完毕" class="headerlink" title="页面加载完毕"></a>页面加载完毕</h2><p>当整个访问提交给渲染进程之后，渲染进程会持续的加载资源并绘制页面。当渲染进程绘制页面完毕后，会通过IPC通信向浏览器主进程发送渲染完毕的信息。<strong>这个消息会在所有资源加载完毕后发出，也就是页面的onload事件触发后发出，</strong>当浏览器进程接收到这个消息后，ui线程会将tab上的loading图标关闭，以表示本次加载完成</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTQ4OGM5ODVkNTZkMWUxNWUyNGRiOTAyM2NlMTAyNjFfSXhCUWtvbnhJbU4yNVhEQ2FaY2JCRElxc0phWmFrMXZfVG9rZW46Ym94Y245WlBaVjFrWmdEcHJlSFF6U09aVGRnXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><h3 id="beforeunload"><a href="#beforeunload" class="headerlink" title="beforeunload"></a><code>beforeunload</code></h3><p>在表单提交的页面中，大多数UED都希望，这个页面打开其他页面时希望出现弹框，告知用户关闭了就没有办法保存你的数据。此时就可以使用<code>beforeunload</code>API，但是内容无法定制。<strong>注意：为避免意外弹出窗口，除非页面已与之交互，否则浏览器可能不会显示在<strong><strong>beforeunload</strong></strong>事件中创建的提示，甚至根本不会显示它们。</strong></p>
+<p>由于事件的监听还是在js执行线程中进行，因此这个过程还是在渲染进程中被处理的。 </p>
+<ul>
+<li>在url中输入跳转<ul>
+<li>浏览器进程向当前渲染进程发送消息，判断是否需要处理unload事件。如果需要处理，当前渲染进程会执行该事件</li>
+</ul>
+</li>
+<li>在html中点击a标签<ul>
+<li>渲染进程首先检查<code>beforeunload</code>。然后再执行和浏览器进程初始化访问同样的步骤，只不过区别在于这样的访问请求是由渲染进程向浏览器进程发起的。</li>
+</ul>
+</li>
+</ul>
+<p>在确认访问一个新的地址时，浏览器进程会初始化一个新的渲染进程执行这个页面，为的是处理unload这种事件时，老页面能够保持当前状态。页面的更多生命周期<a class="link"   href="https://xie.infoq.cn/link?target=https://developers.google.com/web/updates/2018/07/page-lifecycle-api%23overview_of_page_lifecycle_states_and_events" >Page lifecycle <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MDc4M2ZiODA0YTYwM2E3ZDg5ZjZmMDk0NmFlMmI0ODlfTGpiMUxPTUY4NUREN2FuOFZpTFlDOHNjdFhzeGlJaWlfVG9rZW46Ym94Y25qTzFaNUlReVV1V3ZvOTNlSWlZa3pmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h3 id="ServiceWorker"><a href="#ServiceWorker" class="headerlink" title="ServiceWorker"></a><code>ServiceWorker</code></h3><p>提到<code>Service Worker</code>本质上充当 Web 应用程序、浏览器与网络（可用时）之间的代理服务器，是实现<code>PWA</code>的主要功能。当开始请求地址时，网络进程会查看是否有<code>Service Worker</code>去处理这个请求，如果存在，则会执行对应的<code>Service Worker</code>中的代码<code>，Service Worker</code>与<code>web worker</code>不同，<strong>安装后会在浏览器后台开启一个worker进程</strong>，用于处理缓存与其他问题。webworker是在渲染进程中开启一个js执行线程，用于执行js主线程中会阻塞UI渲染的代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YTA5M2JkZTY1MzViZjRiZjY5YWZkYjkwMmYwNzIwMjBfQUxkVVV0OUU4VWd1cnd1SEJxS0dzcFllYll1UjRHRmtfVG9rZW46Ym94Y25WZUdSNllCdHhOZ0FFU3BWdmNZak1jXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWJlYzc3NzdhYzZkYjBlNWU0MWRjNTc5YTkwNWQwMTBfTWRKWmJ1ZmdQQnRLSWpReHZDSjhxWEg2RjQ1SWlqZ0NfVG9rZW46Ym94Y25ReDZncHFKYXFNZUdVc3JoTDVqNzJpXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h1 id="浏览器渲染流程"><a href="#浏览器渲染流程" class="headerlink" title="浏览器渲染流程"></a><a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Performance/How_browsers_work" >浏览器渲染流程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h1><p>当网络进程拿到数据并对数据安全检测后，就会对浏览器主进程的UI线程发送信号，告知可以进行渲染了，<strong>UI线程发送</strong>这个<strong>请求访问给</strong>它刚刚初始化或者找到的<strong>渲染进程</strong>，渲染进程会从网络进程获取数据(<strong>网络进程请求资源与渲染进程渲染页面是同时进行的</strong>)</p>
+<p>当渲染进程拿到网络进程传输的html字节信息后，就可以开始进行渲染了。总流程如下图：</p>
+<p>Gecko(火狐)内核：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzcwOTQ0MjZhNzg2YzNkMmUzNzA1NWNmZThiZWRlZTRfUVpQTWgwWm5wZUN2VDlFQlBSZlpLOThVU2JReFA1VzZfVG9rZW46Ym94Y25kNHkyTnpjaWRFbXRWMEZTNXpOYVZlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>webkit内核：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=YzczZGIyODYyMWExZDNmY2Q5YTVhZTgwMjVjMzYyMzdfMlZ5dGFETEVBbUhDWHBST1U0TEhZZWQyY3VzYnhWcWRfVG9rZW46Ym94Y25Nc2VhbmtXdWI5TkJYdkN1VXczelJXXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>正常的加载过程</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ODU4OTYyZWUwMTg1NGU2N2YwNzVlYzU3MjIzYzZhZmFfeEQ0bTlBNEJHUTdJb1RGc0FVbDhWcG9SVDRlSk9rMFlfVG9rZW46Ym94Y25PREtIZjNtN3l3Y0pOTlo4R1BDcE5oXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h2 id="解析HTML"><a href="#解析HTML" class="headerlink" title="解析HTML"></a>解析HTML</h2><p>HTML不与XML一样，有着严格的标签格式。HTML中会存在自闭合、不闭合以及闭合标签，HTML解析器也是极其大度的，即使你写错了，也能够识别出来。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=MTdmMDcwNjMwODFhNGRmMTEyOGY3ZmIyOTIxMzkwNDFfcFY0WlZZSVZUSFJablRQZjJQd25FVkxqS2txbzhDVkxfVG9rZW46Ym94Y25FMkNWb3NmcUc4d1NpRGVOcER5ZGFiXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=NDIwOTU4ODMxMjU2MGU4ZjE0MzhlYTI2NWE2ODk4ZWZfZ3Q1UHByNmdob1NDaW1KeGJqZkxOQ0xYclF4cWJKUWlfVG9rZW46Ym94Y25DQ3pwNWEwc2t3WjlkZDExUXk0UTF4XzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>那么HTML的解析过程是：<strong>Buffer -&gt; 字符串 -&gt; token -&gt; DOM</strong>，在这其中包含了转化token和DOM树构造这两个过程</p>
+<p>转化token是词法分析，将字符串解析为token。HTML 标记包括开始token、结束token、属性名称和属性值。分词器可以识别生成token，将其提供给DOM树的构造函数，并使用下一个字符来识别下一个令牌，依此类推，直到输入结束（状态机）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ODFlZGIyN2U0ZDkyOGQ5YmZkYmJkZGE0MGYzMGMxMDdfZEVEMDJOeUtLUzhab0JYNjFaMUFQWXZXaVQwelp2aDNfVG9rZW46Ym94Y24xS2hpbWFCVHQ1RlVxYW50TU5lcFRmXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>当全部解析完成之后,浏览器会将文档标记为interactive，并开始解析处于“deferred”模式的script：在解析文档后应执行的脚本。然后将文档状态设置为“complete”，并触发“load”事件。此时文档已经全部构建完成。</p>
+<h2 id="解析CSS"><a href="#解析CSS" class="headerlink" title="解析CSS"></a>解析CSS</h2><p>每个 CSS 文件都被解析为一个样式表对象<strong>Style Sheet</strong>。每个对象都包含 <strong>CSS Rule</strong>，CSS 规则对象包含选择器与 CSS 语法对应的其他对象。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDEyMTMyNTVhZTVmOGUzMmRmY2FkMjBkM2RjZDY0YmJfZEdZSHFOcUZOajhPSklBTWdVc0VTeTBJSnJZeWVLd3BfVG9rZW46Ym94Y25LRmc0QjRVSGJ0bm41RmpManJEcm5mXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<p>当我们没有设置样式规则时，此时会用浏览器提供的默认样式。所以有的网站会在样式表中设置</p>
+<p><code>* &#123; margin:0px; padding:0px; &#125;</code>以及其他的清除默认样式的CSS代码</p>
+<h2 id="CSS与JavaScript的执行顺序"><a href="#CSS与JavaScript的执行顺序" class="headerlink" title="CSS与JavaScript的执行顺序"></a>CSS与JavaScript的执行顺序</h2><h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>由于渲染进程中GUI与js执行线程是互斥的，因此当文档解析到script时会暂停解析过程，直到script被执行。如果是引用的外部script，那么文档同样是停止解析，等待从网络进程获取资源、解析、执行等过程直至被执行。</p>
+<p>HTML4与5提供了异步加载JavaScript的方法，加载过程并不会阻止文档的解析。</p>
+<ul>
+<li>async：异步加载立即执行，因此script的执行顺序全凭天意</li>
+<li>defer：异步加载，并等DOM解析完毕后执行，会按你写的顺序执行</li>
+</ul>
+<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs HTML"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;zh&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// undefined</span></span><br><span class="language-javascript">        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;head 中：&#x27;</span>,<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&#x27;div&#x27;</span>)[<span class="hljs-number">0</span>]) </span><br><span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// undefined</span></span><br><span class="language-javascript">        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;body 中首部 ： &#x27;</span>,<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&#x27;div&#x27;</span>)[<span class="hljs-number">0</span>])</span><br><span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>        正常的image<br>        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;image/01.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;图片&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// div</span></span><br><span class="language-javascript">        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;body 中尾部 ： &#x27;</span>,<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&#x27;div&#x27;</span>)[<span class="hljs-number">0</span>])</span><br><span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure></div>
+
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p>从理论上讲CSS的解析和DOM没有直接关系文档不必等待CSS的解析，但是有一个问题，在JavaScript中可以处理CSS样式表，如果此时样式还没有被构建那么会存在很多问题。每个浏览器针对这个情况的处理都是不一样的，在Firefox中会在加载和解析样式表时阻止所有的script。webkit仅在脚本尝试访问可能不存在的样式时阻止脚本的执行，等待样式加载完毕。</p>
+<h2 id="构造渲染树"><a href="#构造渲染树" class="headerlink" title="构造渲染树"></a>构造渲染树</h2><p>在构造DOM树时浏览器还会同时构造渲染树，这个最终完成的渲染树会绘制到页面中。</p>
+<p>每一个DOM都会创建一个RenderObject，用于处理自身与子元素的布局与在页面中的位置。</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">RenderObject</span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">layout</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">// 布局</span><br>  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">paint</span><span class="hljs-params">(PaintInfo)</span></span>; <span class="hljs-comment">// 绘制</span><br>  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> rect <span class="hljs-title">repaintRect</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">// 重新绘制</span><br>  Node* node;  <span class="hljs-comment">// DOM树</span><br>  RenderStyle* style;  <span class="hljs-comment">// 计算完毕的样式</span><br>  RenderLayer* containgLayer; <span class="hljs-comment">//对应z-index的渲染层</span><br>&#125;<br></code></pre></td></tr></table></figure></div>
+
+<h3 id="最终渲染树与DOM的关系"><a href="#最终渲染树与DOM的关系" class="headerlink" title="最终渲染树与DOM的关系"></a>最终渲染树与DOM的关系</h3><p>渲染树对应的 DOM树，关系不是一对一的。被隐藏的DOM它创建的渲染器并不会被插入到渲染树中如<code>display:none</code>的元素。还有一些渲染对象有对应的 DOM 节点，但是不与DOM树的位置相一致。浮动和绝对定位的元素不在文档流中，会被放置在树的不同部分，并映射到真实渲染器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDY3NjE2Nzg2YzgyZWMxZTBkZDJiOWY5MmQ0OGZmZDZfSUdYZk5yVjV0SGpJeHZFdGlyZFROWmlwSEhzczJqcVFfVG9rZW46Ym94Y25XT3lVeUpiRDdpZ2paR3BRcTBPWVBlXzE2ODIwMzMwOTE6MTY4MjAzNjY5MV9WNA"
+                      alt="img"
+                ></p>
+<h3 id="计算样式"><a href="#计算样式" class="headerlink" title="计算样式"></a>计算样式</h3><p>构建渲染树需要计算每个渲染对象的样式属性。样式包括各种来源如样式表、内联元素、视觉元素(bgColor属性)等。将元素的样式所有样式进行计算得出最后需要渲染的样式，可以通过getComputedStyle获取计算后的样式</p>
+<ul>
+<li>getComputedStyle 可以获取伪元素的样式</li>
+</ul>
+<p>样式的计算会遵循CSS权重规则</p>
+<p>等级例子权重值行内样式style1000ID#nav100属性选择器&#x2F;class&#x2F;伪类:hover10元素名&#x2F;伪元素::after1</p>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a class="link"   target="_blank" rel="noopener" href="https://web.dev/howbrowserswork/" >https://web.dev/howbrowserswork/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://xie.infoq.cn/article/5d36d123bfd1c56688e125ad3" >https://xie.infoq.cn/article/5d36d123bfd1c56688e125ad3 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://developer.chrome.com/blog/inside-browser-part2" >https://developer.chrome.com/blog/inside-browser-part2 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://developer.chrome.com/blog/page-lifecycle-api/#why-arent-the-load-or-domcontentloaded-events-mentioned" >https://developer.chrome.com/blog/page-lifecycle-api/#why-arent-the-load-or-domcontentloaded-events-mentioned <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 浏览器架构</li>
+        <li><strong>作者:</strong> 爱吃猪头爱吃肉</li>
+        <li><strong>创建于:</strong> 2023-04-21 07:29:28</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-04-21 07:31:44
+            </li>
+        
+        <li>
+            <strong>链接:</strong> http://example.com/2023/04/21/Browser架构/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">#浏览器</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐文章</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/04/20/git常见指令/" title="git常见指令" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="git常见指令">
+  <span class="title">git常见指令</span>
+</a><a class="recommended-article-item" href="/2023/04/16/前端工程化校验配置/" title="前端工程化校验配置" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="前端工程化校验配置">
+  <span class="title">前端工程化校验配置</span>
+</a><a class="recommended-article-item" href="/2023/04/16/css规范/" title="前端 CSS 代码规范" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="前端 CSS 代码规范">
+  <span class="title">前端 CSS 代码规范</span>
+</a><a class="recommended-article-item" href="/2023/04/12/hello-world/" title="Hello World" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="Hello World">
+  <span class="title">Hello World</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/20/git%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">git常见指令</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'b03b8da04a47bfc936a2',
+                    clientSecret: '4b9281f5cd36d1539920d154fc24dd6a9adb2613',
+                    repo: 'zsasjy.github.io',
+                    owner: 'zsasjy',
+                    admin: ['zsasjy'],
+                    id: window.location.pathname,
+                    language: 'zh-CN',
+                    labels: ['Gitalk', 'bug', 'documentation', 'question']
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <!-- <div class="toc-title">此页目录</div> -->
+        <div class="page-title">浏览器架构</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9E%B6%E6%9E%84"><span class="nav-text">浏览器架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%8A%E5%85%B6%E5%86%85%E6%A0%B8"><span class="nav-text">主流浏览器及其内核</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-text">主流浏览器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-text">内核</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-text">chrome浏览器设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%8F%91%E5%B1%95%E5%8F%B2"><span class="nav-text">浏览器的进程发展史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%BF%9B%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="nav-text">单进程架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="nav-text">多进程架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%EF%BC%88Browser-process%EF%BC%89"><span class="nav-text">浏览器进程（Browser process）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9B%E7%A8%8B%EF%BC%88Network-process%EF%BC%89"><span class="nav-text">网络进程（Network process）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%EF%BC%88Renderer-process%EF%BC%89"><span class="nav-text">渲染进程（Renderer process）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPU%E8%BF%9B%E7%A8%8B%EF%BC%88GPU-process%EF%BC%89"><span class="nav-text">GPU进程（GPU process）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E8%BF%9B%E7%A8%8B%EF%BC%88Plugin-process%EF%BC%89"><span class="nav-text">插件进程（Plugin process）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B1%95%E7%A4%BA"><span class="nav-text">从输入url到页面的展示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%BE%93%E5%85%A5%E5%86%85%E5%AE%B9"><span class="nav-text">处理输入内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E8%B5%B7%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="nav-text">发起网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-text">重定向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE"><span class="nav-text">处理响应数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%B8%B2%E6%9F%93"><span class="nav-text">开始渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E8%A1%8C%E4%B8%AD"><span class="nav-text">渲染进行中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-text">浏览器进程做的事情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-text">渲染进程做的事情</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E5%AE%8C%E6%AF%95"><span class="nav-text">页面加载完毕</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="nav-text">注意：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeunload"><span class="nav-text">beforeunload</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServiceWorker"><span class="nav-text">ServiceWorker</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B"><span class="nav-text">浏览器渲染流程 </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90HTML"><span class="nav-text">解析HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90CSS"><span class="nav-text">解析CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS%E4%B8%8EJavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">CSS与JavaScript的执行顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS"><span class="nav-text">CSS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%B8%B2%E6%9F%93%E6%A0%91"><span class="nav-text">构造渲染树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%B8%B2%E6%9F%93%E6%A0%91%E4%B8%8EDOM%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">最终渲染树与DOM的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%A0%B7%E5%BC%8F"><span class="nav-text">计算样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B1%80"><span class="nav-text">布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">爱吃猪头爱吃肉</a>
+        </div>
+        
+       
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/4/14 12:00:00
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">不知道需要写点啥</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+    
+<script src="/js/libs/mermaid.min.js"></script>
+
+    
+<script src="/js/plugins/mermaid.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
