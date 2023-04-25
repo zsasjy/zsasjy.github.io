@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="爱吃猪头爱吃肉">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/04/25/webpack常用配置汇总/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="webpack常见配置npm脚本执行流程运行npm run build  package.json文件  12345&amp;#123;    &quot;script&quot;:&amp;#123;        &quot;build&quot;:&quot;webpack&quot;    &amp;#125;&amp;#125;   会去package.json文件中的script对象中查找该命令，没有找到报错 找到脚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack常用配置汇总">
+<meta property="og:url" content="http://example.com/2023/04/25/webpack%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="webpack常见配置npm脚本执行流程运行npm run build  package.json文件  12345&amp;#123;    &quot;script&quot;:&amp;#123;        &quot;build&quot;:&quot;webpack&quot;    &amp;#125;&amp;#125;   会去package.json文件中的script对象中查找该命令，没有找到报错 找到脚">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=M2RlMTlmZjFhOTdiYjYwZmVmNTEzNjdhMDZkY2IzYjNfbFZpdE9JM2tBSWtUZGdNWm8xOTRIQmtFU3U2eUlqckJfVG9rZW46Ym94Y25RZUNSSmJwSTgzbnFLcWJZSWNwU1NkXzE2ODIzODA1NTQ6MTY4MjM4NDE1NF9WNA">
+<meta property="og:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGE1OTdhNWFjNzc2YWQ0NGMxNzkxMzBmODJmZDUzNWFfZHJka1pHU3M0YnpUYmZZTGZUVUUzQlozQjgzNVhyWkxfVG9rZW46Ym94Y25lTEtIVWd5SmZISlNjalRBT1FFTmMxXzE2ODIzODA1NTQ6MTY4MjM4NDE1NF9WNA">
+<meta property="article:published_time" content="2023-04-25T00:03:09.000Z">
+<meta property="article:modified_time" content="2023-04-25T00:03:16.618Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=M2RlMTlmZjFhOTdiYjYwZmVmNTEzNjdhMDZkY2IzYjNfbFZpdE9JM2tBSWtUZGdNWm8xOTRIQmtFU3U2eUlqckJfVG9rZW46Ym94Y25RZUNSSmJwSTgzbnFLcWJZSWNwU1NkXzE2ODIzODA1NTQ6MTY4MjM4NDE1NF9WNA">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#CC9933">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            webpack常用配置汇总 -
+        
+        Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true,"enabled":true},"author_label":{"enable":false,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":4,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐文章","limit":5,"placeholder":"/images/b3eb9d03e5704f619f3fe55d809568ce.jpg","skip_dirs":[]}},"colors":{"primary":"#CC9933","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"chinese":{"enable":true,"family":"KaiTi"}},"home_banner":{"enable":true,"image":{"light":"https://cdn.lavagolem.xyz/a26f66658e014e06aa70e2753742bef3.jpg","dark":"https://cdn.lavagolem.xyz/c071cdc46f0c4867a1d52d0cb51fc6d6.jpg"},"title":"爱吃猪头爱吃肉","subtitle":{"text":["我不说话，就没人知道我是菜鸡!",""],"typing_speed":200,"backing_speed":500,"starting_delay":200,"backing_delay":200,"loop":true,"smart_backspace":true},"text_color":{"light":"#FFFFFF","dark":"#FFFFFF"},"text_style":{"title_size":"3.2rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":true,"family":"KaiTi","url":null},"social_links":{"enable":false,"links":{"github":["https://github.com/zsasjy"],"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":20},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"TAGS":{"path":"/tags","icon":"fa-regular fa-tag"},"ESSAY":{"path":"/essay","icon":"fa-regular fa-comment-pen"},"LINKS":{"path":"/links","icon":"fa-regular fa-link"},"ABOUT":{"path":"/about","icon":"fa-regular fa-user"},"OTHER":{"icon":"fa-regular fa-diagram-project","submenus":{"Tboot":"http://plus.hutool.cn:8080/","CustomNav":"https://nav.hutool.cn/?type=mini"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"right","announcement":"简单上线一版，后续接着改","links":null,"announcementtitle":"公告"},"article_date_format":"YYYY-MM-DD HH:mm:ss","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<!-- 引用 artitalk -->
+<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        首页
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/tags"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-tag"></i>
+                                        
+                                        标签
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/essay"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-comment-pen"></i>
+                                        
+                                        随笔
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        链接
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/about"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        关于
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-diagram-project"></i>
+                                        
+                                        其他&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="http://plus.hutool.cn:8080/">TBOOT
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://nav.hutool.cn/?type=mini">自定义导航
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                首页
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/tags"  >
+                             
+                                
+                                    <i class="fa-regular fa-tag"></i>
+                                
+                                标签
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/essay"  >
+                             
+                                
+                                    <i class="fa-regular fa-comment-pen"></i>
+                                
+                                随笔
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                链接
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/about"  >
+                             
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                关于
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-diagram-project"></i>
+                                
+                                其他&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="http://plus.hutool.cn:8080/">TBOOT</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://nav.hutool.cn/?type=mini">自定义导航</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">webpack常用配置汇总</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://cdn.lavagolem.xyz/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">爱吃猪头爱吃肉</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-25 08:03:09</span>
+        <span class="mobile">2023-04-25 08:03</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-04-25 08:03:16</span>
+            <span class="mobile">2023-04-25 08:03</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">构建工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/webpack/">webpack</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>43 分钟</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="webpack常见配置"><a href="#webpack常见配置" class="headerlink" title="webpack常见配置"></a>webpack常见配置</h1><h2 id="npm脚本执行流程"><a href="#npm脚本执行流程" class="headerlink" title="npm脚本执行流程"></a>npm脚本执行流程</h2><p>运行<code>npm run build</code> </p>
+<p><code>package.json</code>文件 </p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;script&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span><span class="string">&quot;webpack&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>会去package.json文件中的script对象中查找该命令，没有找到报错</li>
+<li>找到脚本对应的shell命令 执行对应命令</li>
+<li>查找<code>\node_modules\.bin\webpack.cmd</code> 如果存在执行</li>
+<li>如果不存在 则执行全局(<code>C:\Users\skdzx\AppData\Roaming\npm\node_modules\webpack.cmd</code>）</li>
+<li>如果找到对应脚本的执行文件，执行对应命令</li>
+</ol>
+<h2 id="webpack常用命令"><a href="#webpack常用命令" class="headerlink" title="webpack常用命令"></a>webpack常用命令</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">webpack -p    //压缩混淆脚本，这个非常非常重要！</span><br><span class="line">webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了</span><br><span class="line">webpack -w 或 --watch   //监听变动并自动打包</span><br><span class="line">webpack --mode=development // 配置webpack模式 在模块内部可以使用 process.env.NODE_ENV 获取值</span><br><span class="line">webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包</span><br><span class="line">webpack --display-error-details 查看查找过程，方便出错时能查阅更详尽的信息</span><br><span class="line">webpack --colors 输出结果带彩色，比如：会用红色显示耗时较长的步骤</span><br><span class="line">webpack --profile 输出性能数据，可以看到每一步的耗时</span><br><span class="line">webpack --display-modules 默认情况下node_modules下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-mode"><a href="#webpack-mode" class="headerlink" title="webpack mode"></a>webpack mode</h2><blockquote>
+<p>webpack的开发模式 有 development开发模式、production生产模式、node不指定模式 </p>
+</blockquote>
+<blockquote>
+<p><strong>优先级：命令行配置 &gt; 配置文件配置</strong> </p>
+</blockquote>
+<ol>
+<li>通过在命令行中配置mode</li>
+</ol>
+<blockquote>
+<p>模块中可以通过process.env.NODE_ENV获取，webpack.config中不能获取 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json </span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;script&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;build&quot;</span>:<span class="string">&quot;webpack --mode=production&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>在命令行中配置env</li>
+</ol>
+<blockquote>
+<p>模块中不能获取，webpack.config中使用函数方式获取 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json </span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;script&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;build&quot;</span>:<span class="string">&quot;webpack --env=development&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">env</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(env) <span class="comment">// &#123; WEBPACK_BUNDLE: true, WEBPACK_BUILD: true, production: true &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>使用<code>webpack.DefinePlugin</code> 配置通用变量</li>
+</ol>
+<blockquote>
+<p>模块中可以获取，webpack.config 中无法获取 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">plugins</span>:[</span><br><span class="line">        <span class="keyword">new</span> webpack.<span class="title class_">DefinePlugin</span>(&#123;</span><br><span class="line">            <span class="string">&quot;process.dev.NODE_ENV_DEV&quot;</span>:<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;development&quot;</span>),</span><br><span class="line">            <span class="string">&quot;process.dev.NODE_ENV_PRO&quot;</span>:<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;production&quot;</span>),</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>使用<code>cross-env</code>配置环境变量</li>
+</ol>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json </span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;script&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;start&quot;</span>:<span class="string">&quot;cross-env NODE_ENV=development &amp;&amp; webpack server&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">mode</span>:process.<span class="property">env</span>.<span class="property">NODE_ENV</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(process.<span class="property">env</span>.<span class="property">NODE_ENV</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-entry"><a href="#webpack-entry" class="headerlink" title="webpack entry"></a>webpack entry</h2><blockquote>
+<p>可以是字符串，数组，对象方式 </p>
+</blockquote>
+<blockquote>
+<p>entry对应的路径可以是相对路径、可以是绝对路径(output 只能是绝对路径) </p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//// 单入口</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:<span class="string">&quot;./src/index.js&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:&#123;<span class="attr">main</span>:<span class="string">&quot;./src/index.js&quot;</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//---------------------------------------</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:[<span class="string">&quot;./src/index.js&quot;</span>,<span class="string">&quot;./src/index2.js&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:&#123;<span class="attr">main</span>:[<span class="string">&quot;./src/index.js&quot;</span>,<span class="string">&quot;./src/index2.js&quot;</span>]&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//---------------------------------------</span></span><br><span class="line"><span class="comment">//// 多入口</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:&#123;</span><br><span class="line">        <span class="attr">main</span>:<span class="string">&quot;./src/main.js&quot;</span>,</span><br><span class="line">        <span class="attr">index</span>:<span class="string">&quot;./src/index.js&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-output"><a href="#webpack-output" class="headerlink" title="webpack output"></a>webpack output</h2><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 出口</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">output</span>:&#123;</span><br><span class="line">        <span class="attr">filename</span>:<span class="string">&quot;[name].[hashchunk].js&quot;</span>, <span class="comment">// 输出文件名称</span></span><br><span class="line">        <span class="attr">path</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;build&quot;</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="loader的三种配置方式"><a href="#loader的三种配置方式" class="headerlink" title="loader的三种配置方式"></a>loader的三种配置方式</h2><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>:<span class="string">&quot;./src/index.js&quot;</span></span><br><span class="line">    <span class="attr">module</span>:&#123;</span><br><span class="line">      <span class="attr">rules</span>:[</span><br><span class="line">        &#123;<span class="attr">test</span>:<span class="regexp">/\.png|jpg|gif$/</span>,<span class="attr">use</span>:<span class="string">&quot;url-loader&quot;</span> <span class="comment">// loader:&quot;url-loader&quot;&#125;, </span></span><br><span class="line">      <span class="comment">// loader的执行是自下向上 自右向左执行的</span></span><br><span class="line">        &#123;<span class="attr">test</span>:<span class="regexp">/\.css$/</span>,<span class="attr">use</span>:[<span class="string">&quot;style-loader&quot;</span>,<span class="string">&quot;css-loader&quot;</span>]&#125;,</span><br><span class="line">        &#123;<span class="attr">test</span>:<span class="regexp">/\.js$/</span>,<span class="attr">use</span>:&#123;</span><br><span class="line">                <span class="attr">loader</span>:<span class="string">&quot;babel-loader&quot;</span>,</span><br><span class="line">                <span class="attr">options</span>:&#123;</span><br><span class="line">                    <span class="comment">// 配置 babel-polyfill</span></span><br><span class="line">                    <span class="attr">preset</span>:[<span class="string">&quot;@babel/preset-env&quot;</span>,&#123;</span><br><span class="line">                        <span class="attr">useBuiltIns</span>:<span class="string">&quot;usage&quot;</span>,</span><br><span class="line">                        <span class="attr">corejs</span>:&#123;<span class="attr">version</span>:<span class="number">2</span>&#125;</span><br><span class="line">                    &#125;],</span><br><span class="line">                    <span class="attr">plugins</span>:[[<span class="string">&quot;@babel/plugin-transform-runtime&quot;</span>]]</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-source-map"><a href="#webpack-source-map" class="headerlink" title="webpack source-map"></a>webpack source-map</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 开启source-map</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">    devtool:&quot;cheap-source-map&quot;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>source-map 配置</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>关键字</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eval</td>
+<td>使用eval包裹模块代码</td>
+</tr>
+<tr>
+<td>source-map</td>
+<td>最完整的信息，产生.map文件</td>
+</tr>
+<tr>
+<td>cheap</td>
+<td>不包含列信息（关于列信息的解释下面会有详细介绍)也不包含loader的sourcemap</td>
+</tr>
+<tr>
+<td>module</td>
+<td>包含loader的sourcemap（比如jsx to js ，babel的sourcemap）,否则无法定义源文件</td>
+</tr>
+<tr>
+<td>inline</td>
+<td>将.map作为DataURI嵌入，不单独生成.map文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>source-map 组合标准</strong></li>
+</ul>
+<div class="highlight-container" data-rel="Ruby"><figure class="iseeu highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(inline-|<span class="params">hidden-</span>|eval-)<span class="string">?(</span>nosources-)<span class="string">?(</span>cheap-(<span class="keyword">module</span>-)<span class="string">?)</span><span class="string">?s</span>ource-map$</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>source-map 常见组合</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>source-map</td>
+<td>原始代码 最好的sourcemap质量有完整的结果，但是会很慢</td>
+</tr>
+<tr>
+<td>eval-source-map</td>
+<td>原始代码 同样道理，但是最高的质量和最低的性能</td>
+</tr>
+<tr>
+<td>cheap-module-eval-source-map</td>
+<td>原始代码（只有行内） 同样道理，但是更高的质量和更低的性能</td>
+</tr>
+<tr>
+<td>eval-cheap-source-map</td>
+<td>转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl</td>
+</tr>
+<tr>
+<td>eval</td>
+<td>生成代码 每个模块都被eval执行，并且存在@sourceURL,带eval的构建模式能cache SourceMap</td>
+</tr>
+<tr>
+<td>cheap-source-map</td>
+<td>转换代码（行内） 生成的sourcemap没有列映射，从loaders生成的sourcemap没有被使用</td>
+</tr>
+<tr>
+<td>cheap-module-source-map</td>
+<td>原始代码（只有行内） 与上面一样除了每行特点的从loader中进行映射</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>source-map</p>
+<ul>
+<li>生产单独的source-map文件</li>
+<li>包含完整的行和列信息</li>
+</ul>
+</li>
+<li><p>在目标文件里建立关系，从而能提示源文件原始位置</p>
+<ul>
+<li><strong>不能缓存模块的sourceMap，每次都要重新产生完整的sourcemap</strong></li>
+</ul>
+</li>
+<li><p>inline-source-map</p>
+<ul>
+<li>以base64格式内联在打包后的文件中</li>
+<li>包含完整的行和列信息</li>
+</ul>
+</li>
+<li><p>在目标文件里建立关系，从而能提示源文件原始位置</p>
+</li>
+<li><p>hidden-source-map</p>
+<ul>
+<li>会在外部生产source-map,但是在目标文件并没有建立关联，也不能提示原始错误位置</li>
+<li>线上的代码中存在对应source-map的，有可能会造成代码的泄露</li>
+</ul>
+</li>
+<li><p>当线上代码出BUG时，可以使用对应的source-map进行调试</p>
+</li>
+<li><p>eval-source-map</p>
+<ul>
+<li>会为每一个模块生产一个单独的sourcemap进行关联，并使用eval进行执行</li>
+<li><strong>它与sourceMap一样好使，但是可以缓存每个模块的sourcemap，在重新构建的时候速度更快。每个模块都有自己的sourcemap，并且模块之间的sourcemap相互独立</strong></li>
+</ul>
+</li>
+<li><p><code>nosources-source-map</code></p>
+</li>
+<li><p>会生产sourcemap文件，也能找到源代码位置，但是源代码位置是空的</p>
+</li>
+<li><p>cheap-source-map</p>
+<ul>
+<li>只包含行映射，不包含列映射</li>
+<li>映射代码是转换后代码 如使用了babel</li>
+</ul>
+</li>
+<li><p>cheap-module-source-map</p>
+<ul>
+<li>只包含行映射，不包含列映射</li>
+<li>映射到真实源代码文件</li>
+</ul>
+</li>
+<li><p><code>eval-cheap-module-source-map</code>：提供了只映射行（没有列映射）的源映射，而且速度更快。</p>
+</li>
+<li><p><code>eval-cheap-source-map</code>：与eval-cheap-source-map类似，但不为模块生成源映射（即jsx到js的映射）。</p>
+</li>
+<li><p><code>eval</code>：具有最佳性能，但它只映射到每个模块的已编译源代码。在许多情况下，这已经足够了。(映射到编译后的源代码)</p>
+</li>
+</ul>
+<h2 id="webpack-常用loader"><a href="#webpack-常用loader" class="headerlink" title="webpack 常用loader"></a>webpack 常用loader</h2><blockquote>
+<p>webpack默认执行打包处理js和json，无法处理其他文件内容。loader的作用是将其他文件的内容转化为js可执行的代码 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function loader(source)&#123;</span><br><span class="line">    /// ....处理</span><br><span class="line">    // loader可以拿到在 module.rules[0].options =&gt; loaderOptions </span><br><span class="line">    return `module.exports = $&#123;xxx&#125;`</span><br><span class="line">&#125;</span><br><span class="line">module.exports = loader</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>loader的分类</strong> </p>
+<blockquote>
+<p>执行顺序 pre &gt; normal（默认）&gt; inline &gt; post (同级别: 先下后上，先右后左) </p>
+</blockquote>
+<ul>
+<li><code>pre</code>： 前置</li>
+<li><code>normal</code>: 正常</li>
+<li><code>inline</code>：内联</li>
+<li><code>post</code>: 后置</li>
+</ul>
+<p><strong>常见loader</strong> </p>
+<ul>
+<li><p><code>raw-loader</code> : 用于文本</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/url-loader/" >url-loader <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><code>url-loader</code> ： 判断是否小于指定大小 小于返回base64 否则返回图片dataUrl</p>
+</li>
+<li><p><code>file-loader</code> ：处理图片</p>
+</li>
+<li><p>css-loader</p>
+<div class="highlight-container" data-rel="Ebnf"><figure class="iseeu highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">css-loader</span></span><br></pre></td></tr></table></figure></div>
+
+<p>：处理css</p>
+<ul>
+<li><code>importLoaders</code> <code>less</code> 阶段会将会处理 <code>@import</code>，<code>[&quot;style-loader&quot;,&quot;css-loader&quot;,&quot;less-loader&quot;]</code> <code>css-loader</code> 不需要设置<code>importLoaders</code></li>
+<li><code>importLoaders</code> 选项允许你配置在 <code>css-loader</code> 之前有多少 loader 应用于<code>@import</code>资源。</li>
+</ul>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/less-loader/" >less-loader <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><code>less-loader</code> ：处理less 具体配置查看 <a class="link"   target="_blank" rel="noopener" href="https://less.bootcss.com/usage/#browser-usage-options" >lessOptions <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p><code>scss-loader</code>：处理scss</p>
+</li>
+<li><p><code>vue-loader</code>：处理vue文件</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/babel-loader/" >babel-loader <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><code>babel-loader</code>：处理js</p>
+</li>
+<li><p><code>ts-loader</code>：处理ts</p>
+</li>
+<li><p><code>postcss-loader</code> 处理css浏览器兼容 <a class="link"   target="_blank" rel="noopener" href="https://postcss.org/api/" >postcssOptions <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p><code>image-webpack-loader</code> ：图片压缩</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/thread-loader/" >thread-loader <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><code>thread-loader</code> ： js开启多进程压缩</p>
+</li>
+<li><p><code>expose-loader</code> : 实现第三方模块的加载一次全局使用</p>
+</li>
+<li><p><code>cache-loader</code> ：用于将开销较大的loader存储到磁盘上，第一次构建时间会久</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">const MiniCssExtractPlugin = require(&#x27;mini-css-extract-plugin&#x27;);</span><br><span class="line">module.export = &#123;</span><br><span class="line">    module:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;test:/\.txt$/,use:&quot;raw-loader&quot;&#125;,</span><br><span class="line">            &#123;test:/\.(png|jpeg|bmp|gif|svg)$/,use:[</span><br><span class="line">                &#123;</span><br><span class="line">                    loader:&quot;url-loader&quot;,</span><br><span class="line">                    options:&#123;</span><br><span class="line">                        esModule:false, // 关闭esmodule 可以省略 xx.default</span><br><span class="line">                        limit:4 * 1024, // 4Kb</span><br><span class="line">                        outputPath:&quot;imgs&quot;,</span><br><span class="line">                        publicPath:&quot;/imgs&quot;</span><br><span class="line">                        fallback:&#123; // 超出limit指定loader</span><br><span class="line">                            loader:&quot;file-loader&quot;,//默认file-loader</span><br><span class="line">                            options:&#123;</span><br><span class="line">                                name:&quot;imgs/[name].[chunkhash:8].[ext]&quot;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                &#x27;image-webpack-loader&#x27;</span><br><span class="line">            ]&#125;,</span><br><span class="line">            &#123;test:/\.css$/,use:[MiniCssExtractPlugin.loader,&#123;</span><br><span class="line">                loader:&quot;css-loader&quot;,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    importLoaders: 1,</span><br><span class="line">                    sourceMap: false,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,&quot;postcss-loader&quot;]&#125;, // 单独抽离css文件</span><br><span class="line">            &#123;test:/\.less$/,use:[&quot;style-loader&quot;,&quot;css-loader&quot;,&quot;postcss-loader&quot;,&#123;</span><br><span class="line">                loader:&quot;less-loader&quot;</span><br><span class="line">              options:&#123;</span><br><span class="line">                  additionalData: &quot;@env:&quot; + process.env.NODE_ENV,</span><br><span class="line">                    lessOptions:&#123;</span><br><span class="line">                        javascriptEnabled:true,</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;]&#125;,</span><br><span class="line">      &#123;test:/\.scss$/,use:[&quot;style-loader&quot;,&quot;css-loader&quot;,&quot;scss-loader&quot;]&#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              test:/\.jsx?$/,</span><br><span class="line">                use:&quot;eslint-loader&quot;,</span><br><span class="line">                enforce:&quot;pre&quot;,// 执行顺序，pre 先前执行</span><br><span class="line">                exclude:/node_modules/,// 排除node_modules文件夹</span><br><span class="line">                options:&#123;fix:true&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;test:/\.jsx?$/,use:[&quot;cache-loader&quot;,</span><br><span class="line">                 &#123;</span><br><span class="line">                    loader:&quot;babel-loader&quot;,</span><br><span class="line">                    options:&#123;</span><br><span class="line">                        presets:[[&quot;@babel/preset-env&quot;,</span><br><span class="line">                            &#123; // babel预设配置</span><br><span class="line">                                targets:&#123;chrome:&quot;58&quot;,ie:&quot;10&quot;&#125;, // 支持的浏览器版本</span><br><span class="line">                                useBuiltins:&quot;usage&quot;, // 配置polyfill</span><br><span class="line">                                corejs:&#123;version:3&#125; // core-js的版本</span><br><span class="line">                            &#125;</span><br><span class="line">                        ],&quot;@babel/preset-react&quot;], // 支持jsx</span><br><span class="line">                        plugins:[</span><br><span class="line">                            // 配置babel插件</span><br><span class="line">                            [&#x27;@babel/plugin-proposal-decorators&#x27;, &#123; legacy: true &#125;],               [&#x27;@babel/plugin-proposal-class-properties&#x27;, &#123; loose: true &#125;],</span><br><span class="line">                        ],</span><br><span class="line">                    &#125;,</span><br><span class="line">                    exclude:/node_modules/,</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    loader:&quot;thread-loader&quot;,</span><br><span class="line">                    options:&#123;</span><br><span class="line">                        workers: 5, // 开启的进出数量</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &#123;test:/\.tsx?$/,use:&quot;ts-loader&quot;&#125;, // 配置ts</span><br><span class="line">            &#123; // 配置第三方模块jquery</span><br><span class="line">                test:require.resolve(&quot;jquery&quot;),</span><br><span class="line">                use:&#123;</span><br><span class="line">                    loader:&quot;expose-loader&quot;,</span><br><span class="line">                    options:&#123;</span><br><span class="line">                        exposes:&#123;</span><br><span class="line">                            globalName: &quot;$&quot;, // 全局名称</span><br><span class="line">                    moduleLocalName: &quot;$&quot;, // 局部模块名称</span><br><span class="line">                        &#125; </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack常用plugins"><a href="#webpack常用plugins" class="headerlink" title="webpack常用plugins"></a><a class="link"   target="_blank" rel="noopener" href="https://webpack.docschina.org/plugins/" >webpack常用plugins <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h2><blockquote>
+<p>webpack插件可以理解为，在webpack整体执行流程中有许多的钩子函数，插件通过钩子函数在webpack打包流程中做一些事情 </p>
+</blockquote>
+<ul>
+<li><code>htmlWebpackPlugin</code> ：打包生成html并自动引入script</li>
+<li><code>MiniCssExtractPlugin</code> ：提取css到单独的文件</li>
+<li><code>DefinePlugin</code> ：配置全局变量 webpack内置</li>
+<li><code>TerserPlugin</code> ：压缩JS webpack内置了</li>
+<li><code>OptimizeCssAssetsWebpackPlugin</code> : 压缩优化CSS</li>
+<li><code>FileManagerPlugin</code>：用于将打包后的文件复制到指定文件</li>
+<li><code>HtmlWebpackExternalsPlugin</code> : 引入CDN模块</li>
+<li><code>ProvidePlugin</code> : 引入第三方库 webpack内置</li>
+<li><code>CopyWebpackPlugin</code> : copy静态文件</li>
+<li><code>CleanWebpackPlugin</code> ：在打包前清空打包文件</li>
+<li><code>CompressionWebpackPlugin</code> : 对代码进压缩</li>
+<li><code>BannerPlugin</code> : 为项目文件插入注释</li>
+<li><code>DllPlugin</code> : 动态链接库 用于将组件库与不变的第三库 进行单独打包</li>
+<li><code>DllReferencePlugin</code> : 用于动态替换</li>
+<li><code>SpeedMeasureWebpackPlugin</code> ：打包速度分析插件</li>
+<li><code>BundleAnalyzerPlugin</code> : 开启服务生成打包可视化的html文件</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">const HtmlWebpackPlugin = require(&quot;html-webpack-plugin&quot;);</span><br><span class="line">const MiniCssExtractPlugin = require(&quot;mini-css-extract-plugin&quot;);</span><br><span class="line">const DefinePlugin = require(&quot;define-plugin&quot;);</span><br><span class="line">const HtmlWebpackExternalsPlugin = require(&quot;html-webpack-externals-plugin&quot;);</span><br><span class="line">const CopyWebpackPlugin = require(&quot;copy-webpack-plugin&quot;);</span><br><span class="line">const CleanWebpackPlugin = require(&quot;clean-webpack-plugin&quot;);</span><br><span class="line">const TerserPlugin = require(&quot;terser-webpack-plugin&quot;);</span><br><span class="line">const FileManagerPlugin = require(&quot;file-manager-plugin&quot;);</span><br><span class="line">const &#123; ProvidePlugin,DefinePlugin,BannerPlugin &#125; = require(&quot;webpack&quot;)</span><br><span class="line">const OptimizeCssAssetsWebpackPlugin = requier(&quot;optimize-css-assets-webpack-plugin&quot;);</span><br><span class="line">const SpeedMeasureWebpackPlugin = require(&#x27;speed-measure-webpack-plugin&#x27;);</span><br><span class="line">const smw = new SpeedMeasureWebpackPlugin();</span><br><span class="line">const BundleAnalyzerPlugin = require(&#x27;webpack-bundle-analyzer&#x27;).BundleAnalyzerPlugin;</span><br><span class="line">module.exports = smw.wrap(&#123;</span><br><span class="line">    ...</span><br><span class="line">    module:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;test:/\.css$/,user:[MiniCssExtractPlugin.loader,&quot;css-loader&quot;]&#125;,</span><br><span class="line">            &#123;test:/\.less$/,user:[MiniCssExtractPlugin.loader,&quot;css-loader&quot;,&quot;less-loader&quot;,]&#125;,</span><br><span class="line">        ]  </span><br><span class="line">    &#125;,</span><br><span class="line">    optimization:&#123;</span><br><span class="line">        minimize:true,</span><br><span class="line">        minimizer:[</span><br><span class="line">            new TerserPlugin(&#123;</span><br><span class="line">                test:/\.js$/, //匹配需要压缩的文件</span><br><span class="line">                include:// 引入需要压缩的文件</span><br><span class="line">                exclude:/node_modules/ // 排除文件夹</span><br><span class="line">                parallel:4,// boolean 是否开启多进程并发 / number 最大并发数</span><br><span class="line">            &#125;) // 压缩js</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line">        new HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: &#x27;./src/index.html&#x27;,</span><br><span class="line">            chunks:[&quot;index&quot;],</span><br><span class="line">            inject:&quot;body&quot;, // body,head,true(在body底部生成script),false(不生成script)</span><br><span class="line">            minify:&#123; // 开启压缩</span><br><span class="line">                collapseWhitespace: true, // 去除空格</span><br><span class="line">                removeComments: true // 删除注释</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;),</span><br><span class="line">        new DefinePlugin(&#123;</span><br><span class="line">            &#x27;NODE_ENV&#x27;:JSON.stringify(&#x27;development&#x27;),</span><br><span class="line">        &#125;),</span><br><span class="line">        new MiniCssExtractPlugin(&#123;</span><br><span class="line">            filename: &#x27;css/[name].css&#x27;</span><br><span class="line">        &#125;),</span><br><span class="line">        // HtmlWebpackExternalsPlugin 不好使了</span><br><span class="line">        new HtmlWebpackExternalsPlugin(&#123;</span><br><span class="line">            externals: [&#123;</span><br><span class="line">                module: &#x27;lodash&#x27;, // 模块名</span><br><span class="line">                entry: &quot;https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.20/lodash.js&quot;,</span><br><span class="line">                global: &#x27;_&#x27;, // 全局变量名</span><br><span class="line">            &#125;],</span><br><span class="line">        &#125;),</span><br><span class="line">        new CopyWebpackPlugin(&#123;</span><br><span class="line">            patterns: [&#123;</span><br><span class="line">                from: path.resolve(__dirname,&#x27;src/static&#x27;),//静态资源目录源地址</span><br><span class="line">                to: path.resolve(__dirname,&#x27;dist/static&#x27;), //目标地址，相对于output的path目录</span><br><span class="line">            &#125;],</span><br><span class="line">        &#125;),</span><br><span class="line">        new FileManagerPlugin(&#123; // 管理打包后的文件路径</span><br><span class="line">          events: &#123;</span><br><span class="line">            onEnd: &#123; // 结束时 将dist文件拷贝到指定文件夹下</span><br><span class="line">                    copy: [&#123;</span><br><span class="line">                       source: &#x27;./dist/*.map&#x27;, // 指定目录下的.map为后缀文件</span><br><span class="line">                      destination: &#x27;C:/aprepare/zhufengwebpack2021/1.basic/sourcemap&#x27;, // 目标文件</span><br><span class="line">                    &#125;],</span><br><span class="line">                delete: [&#x27;./dist/*.map&#x27;], // 删除当前生成的文件</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">        new CleanWebpackPlugin(&#123;cleanOnceBeforeBuildPatterns: [&#x27;**/*&#x27;],&#125;),</span><br><span class="line">        new ProvidePlugin(&#123; // 配置后即可全局使用</span><br><span class="line">            _:&quot;lodash&quot;,</span><br><span class="line">            $:&quot;jquery&quot;,</span><br><span class="line">        &#125;),</span><br><span class="line">        new BannerPlugin(&quot;学习webpack&quot;),</span><br><span class="line">        new OptimizeCssAssetsWebpackPlugin(),// css优化</span><br><span class="line">        new BundleAnalyzerPlugin(),// 可视化打包资源数据</span><br><span class="line">        // 默认配置的具体配置项</span><br><span class="line">        // new BundleAnalyzerPlugin(&#123;</span><br><span class="line">        //   analyzerMode: &#x27;server&#x27;,</span><br><span class="line">        //   analyzerHost: &#x27;127.0.0.1&#x27;,</span><br><span class="line">        //   analyzerPort: &#x27;8888&#x27;,</span><br><span class="line">        //   reportFilename: &#x27;report.html&#x27;,</span><br><span class="line">        //   defaultSizes: &#x27;parsed&#x27;,</span><br><span class="line">        //   openAnalyzer: true,</span><br><span class="line">        //   generateStatsFile: false,</span><br><span class="line">        //   statsFilename: &#x27;stats.json&#x27;,</span><br><span class="line">        //   statsOptions: null,</span><br><span class="line">        //   excludeAssets: null,</span><br><span class="line">        //   logLevel: info</span><br><span class="line">        // &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-devServer"><a href="#webpack-devServer" class="headerlink" title="webpack devServer"></a>webpack devServer</h2><blockquote>
+<p>webpack 开发服务器配置 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// 配置 开发服务器</span></span><br><span class="line">    <span class="attr">devServer</span>:&#123;</span><br><span class="line">        <span class="comment">//配置额外的静态文件根目录(默认为打包输出路径) 开启一个新的静态文件目录</span></span><br><span class="line">        <span class="attr">contentBase</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;public&quot;</span>), <span class="comment">// 可以是数组 [&quot;&quot;,&quot;&quot;]</span></span><br><span class="line">    <span class="comment">// contentBase中静态文件资源前缀，也可以是数组 与 contentBase对应</span></span><br><span class="line">        <span class="attr">contentBasePublicPath</span>:<span class="string">&quot;/public&quot;</span>,</span><br><span class="line">        <span class="attr">watchContentBase</span>:<span class="literal">false</span>,<span class="comment">// 告诉webpack是否监听contentBase指定文件夹中的文件</span></span><br><span class="line">        <span class="attr">compress</span>:<span class="literal">true</span>,<span class="comment">// 开启gzip压缩</span></span><br><span class="line">        <span class="attr">port</span>:<span class="number">7000</span>,<span class="comment">// 端口号</span></span><br><span class="line">        <span class="attr">open</span>:<span class="literal">true</span>,<span class="comment">// 默认打开浏览器</span></span><br><span class="line">        <span class="attr">allowedHosts</span>:[],<span class="comment">// 配置可以访问服务器的白名单</span></span><br><span class="line">        <span class="attr">clientLogLevel</span>:<span class="string">&quot;slient&quot;</span>, <span class="comment">// 关闭日志信息， trace/debug/info/error/warn</span></span><br><span class="line">        <span class="attr">quiet</span>:<span class="literal">true</span>,<span class="comment">// 除初始启动信息外，任何信息不会写入控制台</span></span><br><span class="line">        <span class="comment">// 配置文件前缀 默认为 / 如 http://localhost:7000/public/index.html</span></span><br><span class="line">        <span class="attr">publicPath</span>:<span class="string">&quot;/public&quot;</span>, </span><br><span class="line">        <span class="attr">headers</span>:&#123;&#125;, <span class="comment">// 配置响应头</span></span><br><span class="line">        <span class="comment">// lazy:true,// 当服务器访问到文件时 才开始编译</span></span><br><span class="line">        <span class="comment">// filename:&quot;main.js&quot;, // 当为lazy时 指定特定的文件 访问时开始编译</span></span><br><span class="line">        <span class="attr">watchOptions</span>:&#123; <span class="comment">// 开启对文件系统的监控</span></span><br><span class="line">            <span class="attr">ignored</span>: <span class="regexp">/node_modules/</span>, <span class="comment">// 忽略文件</span></span><br><span class="line">            <span class="attr">aggregateTimeout</span>:<span class="number">600</span>,<span class="comment">// 类似于防抖 延迟指定毫秒数再重新编译</span></span><br><span class="line">            <span class="attr">poll</span>:<span class="literal">false</span>, <span class="comment">// 使用轮询方式  boolean/number</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">writeToDisk</span>:<span class="literal">true</span>, <span class="comment">// 写入硬盘</span></span><br><span class="line">        <span class="attr">hot</span>:<span class="literal">true</span>, <span class="comment">// 开启更新</span></span><br><span class="line">        <span class="attr">overlay</span>:<span class="literal">false</span>,<span class="comment">// 出现错误全屏覆盖</span></span><br><span class="line">        <span class="title function_">before</span>(<span class="params">app</span>)&#123;&#125;, <span class="comment">// 在静态资源中间件处理之前 可以理解为WebpackDevServer显示页面之前</span></span><br><span class="line">        <span class="title function_">after</span>(<span class="params">app</span>)&#123;&#125; <span class="comment">// 在静态资源中间件处理之后</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-polyfill"><a href="#webpack-polyfill" class="headerlink" title="webpack polyfill"></a>webpack polyfill</h2><blockquote>
+<p>polyfill 用于磨平js在各个浏览器的差异问题 </p>
+</blockquote>
+<ul>
+<li><pre><code>useBuiltIns
+<div class="highlight-container" data-rel="Gradle"><figure class="iseeu highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   的用法</span><br><span class="line"></span><br><span class="line">  - `<span class="keyword">false</span>` : 此时不对 polyfill 做操作。如果引入 `@babel/polyfill`，则无视配置的浏览器兼容，引入所有的 `polyfill`</span><br><span class="line">  - `entry`：**会影响全局变量，因为是在全局对象添加polyfill方法**</span><br><span class="line">  - 在项目入口引入一次（多次引入会报错）</span><br><span class="line">  - `<span class="string">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;entry&quot;</span>` 根据配置的浏览器兼容，引入浏览器不兼容的 polyfill。需要在入口文件手动添加 `<span class="keyword">import</span> <span class="string">&#x27;@babel/polyfill&#x27;</span>`，会自动根据 browserslist 替换成浏览器不兼容的所有 polyfill</span><br><span class="line">  - 这里需要指定 core-js 的版本, 如果 <span class="string">&quot;corejs&quot;</span>: <span class="number">3</span>, 则 <span class="keyword">import</span> <span class="string">&#x27;@babel/polyfill&#x27;</span> 需要改成 `<span class="keyword">import</span> <span class="string">&#x27;core-js/stable&#x27;</span>;<span class="keyword">import</span> <span class="string">&#x27;regenerator-runtime/runtime&#x27;</span>;`</span><br><span class="line"></span><br><span class="line">```JavaScript</span><br><span class="line"><span class="comment">// 入口文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;core-js/stable&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;regenerator-runtime/runtime&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">      test: <span class="regexp">/\.jsx?$/</span>,</span><br><span class="line">        <span class="keyword">exclude</span>: <span class="regexp">/node_modules/</span>,</span><br><span class="line">            use: &#123;</span><br><span class="line">                loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">                    <span class="keyword">options</span>: &#123;</span><br><span class="line">                        presets: [[<span class="string">&quot;@babel/preset-env&quot;</span>, &#123;</span><br><span class="line">                            useBuiltIns: <span class="string">&#x27;entry&#x27;</span>,</span><br><span class="line">                            corejs: &#123; version: <span class="number">3</span> &#125;</span><br><span class="line">                        &#125;], <span class="string">&quot;@babel/preset-react&quot;</span>],</span><br><span class="line">                            plugins: [</span><br><span class="line">                                [<span class="string">&quot;@babel/plugin-proposal-decorators&quot;</span>, &#123; legacy: <span class="keyword">true</span> &#125;],</span><br><span class="line">                                [<span class="string">&quot;@babel/plugin-proposal-class-properties&quot;</span>, &#123; loose: <span class="keyword">true</span> &#125;]</span><br><span class="line">                            ]</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;browserslist&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;development&quot;</span>: [</span><br><span class="line">      <span class="string">&quot;last 1 chrome version&quot;</span>,</span><br><span class="line">      <span class="string">&quot;last 1 firefox version&quot;</span>,</span><br><span class="line">      <span class="string">&quot;last 1 safari version&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;production&quot;</span>: [</span><br><span class="line">      <span class="string">&quot;&gt;1%&quot;</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</code></pre>
+</li>
+<li><p><code>usage</code> : 按需引入，不需要配置<code>polyfill</code>，引入方式也是<code>import xxx from &#39;xxx&#39;</code>，当多个文件都需要<code>polyfill</code>时，会重复在<strong>局部</strong>添加引入代码，<strong>不会影响全局变量</strong>。</p>
+</li>
+<li><pre><code>babel-runtime
+<div class="highlight-container" data-rel="Coffeescript"><figure class="iseeu highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - Babel为了解决全局空间污染的问题，提供了单独的包[babel-runtime](https://babeljs.io/docs/en/babel-runtime)用以提供编译模块的工具函数</span><br><span class="line">  - 简单说 `<span class="language-javascript">babel-runtime</span>` 更像是一种按需加载的实现，比如你哪里需要使用 <span class="built_in">Promise</span>，只要在这个文件头部`<span class="language-javascript"><span class="keyword">import</span> <span class="title class_">Promise</span> <span class="keyword">from</span> <span class="string">&#x27;babel-runtime/core-js/promise&#x27;</span></span>`就行了</span><br><span class="line"></span><br><span class="line">```<span class="language-javascript"><span class="title class_">Plain</span>%20Text</span></span><br><span class="line"><span class="language-javascript">npm i babel-runtime -D</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> <span class="title class_">Promise</span> <span class="keyword">from</span> <span class="string">&#x27;babel-runtime/core-js/promise&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">()=&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"><span class="variable language_">console</span>.<span class="title function_">log</span>(p);</span></span><br></pre></td></tr></table></figure></div>
+</code></pre>
+</li>
+<li><pre><code>@babel/plugin-transform-runtime
+<div class="highlight-container" data-rel="Autohotkey"><figure class="iseeu highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 启用插件`babel-plugin-transform-runtime`后，Babel就会使用`babel-runtime`下的工具函数。</span><br><span class="line"></span><br><span class="line">- `babel-plugin-transform-runtime`插件能够将这些工具函数的代码转换成`require`语句，指向为对`babel-runtime`的引用</span><br><span class="line"></span><br><span class="line">- ```</span><br><span class="line">  babel-plugin-transform-runtime</span><br></pre></td></tr></table></figure></div>
+</code></pre>
+</li>
+</ul>
+<p>就是可以在我们使用新 API 时自动<code>import babel-runtime</code>里面的<code>polyfill</code> </p>
+<ul>
+<li><p>当我们使用 <code>async/await</code> 时，自动引入 <code>babel-runtime/regenerator</code></p>
+</li>
+<li><p>当我们使用 ES6 的静态事件或内置对象时，自动引入 </p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">babel-runtime/core-js</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>移除内联<code>babel helpers</code>并替换使用<code>babel-runtime/helpers</code> 来替换</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">cnpm i @babel/runtime-corejs2 -D</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.jsx?$/,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: &#x27;babel-loader&#x27;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            presets: [[&quot;@babel/preset-env&quot;,&#123;</span><br><span class="line">              targets: &quot;&gt; 0.25%, not dead&quot;,</span><br><span class="line">            &#125;], &#x27;@babel/preset-react&#x27;],</span><br><span class="line">            plugins: [</span><br><span class="line">+              [</span><br><span class="line">+                &quot;@babel/plugin-transform-runtime&quot;,</span><br><span class="line">+                &#123;</span><br><span class="line">+                  corejs: 3,//当我们使用 ES6 的静态事件或内置对象时自动引入 babel-runtime/core-js</span><br><span class="line">+                  helpers: true,//移除内联babel helpers并替换使用babel-runtime/helpers 来替换</span><br><span class="line">+                  regenerator: true,//是否开启generator函数转换成使用regenerator runtime来避免污染全局域</span><br><span class="line">+                &#125;,</span><br><span class="line">+              ],</span><br><span class="line">              [&#x27;@babel/plugin-proposal-decorators&#x27;, &#123; legacy: true &#125;],</span><br><span class="line">              [&#x27;@babel/plugin-proposal-class-properties&#x27;, &#123; loose: true &#125;],</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure></div>
+
+<p>main.js </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const p = new Promise(()=&gt; &#123;&#125;);</span><br><span class="line">console.log(p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class A &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(new B());</span><br><span class="line"></span><br><span class="line">function* gen() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(gen());</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>最佳实践<ul>
+<li><code>babel-runtime</code>适合在组件和类库项目中使用，而<code>babel-polyfill</code>适合在业务项目中使用。</li>
+</ul>
+</li>
+<li>polyfill-service<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://polyfill.io/v3/" >polyfill.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>自动化的 JavaScript Polyfill 服务</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://polyfill.io/v3/" >polyfill.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>通过分析请求头信息中的 UserAgent 实现自动加载浏览器所需的 polyfills</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://polyfill.io/v3/polyfill.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-resolve使用"><a href="#webpack-resolve使用" class="headerlink" title="webpack resolve使用"></a>webpack resolve使用</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">module.export = &#123;</span><br><span class="line">    resolve:&#123;</span><br><span class="line">        alias:[</span><br><span class="line">            &quot;@&quot;:&quot;./src&quot; // 配置别名</span><br><span class="line">        ],</span><br><span class="line">        extensions:[&quot;.tsx&quot;,&quot;.ts&quot;,&quot;.jsx&quot;,&quot;.js&quot;,&quot;.json&quot;], // 解析顺序</span><br><span class="line">        module:[/node_modules/], // 指定模块查找文件夹</span><br><span class="line">        mainFields: [&#x27;browser&#x27;, &#x27;module&#x27;, &#x27;main&#x27;], // 入口文件字段名称 默认优先级</span><br><span class="line">        mainFiles:[&quot;index&quot;], // 优先查找index开头文件</span><br><span class="line">        resolveLoader:[path.resolve(__dirname,&quot;loaders&quot;),&quot;node_modules&quot;], // /loaders/demo-loader   可以使用了        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webpack-optimization优化"><a href="#webpack-optimization优化" class="headerlink" title="webpack optimization优化"></a>webpack optimization优化</h2><blockquote>
+<p>常见的优化配置 </p>
+</blockquote>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const TerserPlugin = require(&quot;terser-webpack-plugin&quot;)</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">    optimization:&#123;</span><br><span class="line">        minimize:true,</span><br><span class="line">        minimizer:[</span><br><span class="line">            new TerserPlugin();// 开启插件压缩js </span><br><span class="line">        ],</span><br><span class="line">      	minChunks:1,</span><br><span class="line">      splitChunk:&#123; // 代码切割</span><br><span class="line">        chunks:&quot;all&quot;,// 切割的代码块类型 all，async，initial</span><br><span class="line">        minChunk:3 * 1024, // 进行切割的最小代码块</span><br><span class="line">        maxChunk:0, // 进行切割的最大代码块，0表示任意大，如果不为0则需要比minChunk大</span><br><span class="line">        maxAsyncRequests:2, // 按需加载进行代码切割的最大个数</span><br><span class="line">        maxInitialRequests:3, </span><br><span class="line">        minSize:10,</span><br><span class="line">        maxSize:0,</span><br><span class="line">        cacheGroups:&#123;</span><br><span class="line">          default:&#123;</span><br><span class="line">            reuseExistingChunk: true,</span><br><span class="line">            priority: -10</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><code>minimize</code>: 开启插件压缩</p>
+</li>
+<li><p><code>minimizer</code>: 传入实现压缩功能的插件，<code>minimize</code>需要设置为true</p>
+</li>
+<li><pre><code>splitChunk
+<div class="highlight-container" data-rel="Asciidoc"><figure class="iseeu highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">代码块切割优化</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>chunks</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+  chunks
+  <div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  代码块切割方式</span><br><span class="line"></span><br><span class="line"><span class="bullet">  -</span> <span class="code">`all`</span> ： 对引入的(直接引入、按需引入)模块进行优化</span><br><span class="line"><span class="bullet">  -</span> <span class="code">`async`</span> : 入口中按需加载的模块，模块中按需加载的模块，都会被优化</span><br><span class="line"><span class="bullet">  -</span> <span class="code">`initial`</span> : 入口中直接引入的模块、模块中直接引入的模块，都会被拆解并单独打包。共用模块只打包一次</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="code">`minChunks`</span>: 拆分前 非按需引入的共用代码块最小次数</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="code">`maxInitialRequests`</span> : 当项目打包完成后，一个直接引入的包会被拆分为指定个数的包</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> maxAsyncRequests</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+  maxAsyncRequests
+  <div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   : 当项目打包完成后，一个按需加载的包会被拆分为指定个数的包</span><br><span class="line"></span><br><span class="line"><span class="bullet">  -</span> maxAsyncRequests 用来表示按需加载的模块其能拆分的最大数量；</span><br><span class="line"><span class="bullet">  -</span> 如果对于单独打包出来的模块有两种可能，被多次引入的那个模块或模块集会被优先打包出来；</span><br><span class="line"><span class="bullet">  -</span> 同样的情况，如果两种情况下模块被引用的次数相同，体积大的那个模块或模块集会被打包出来；</span><br><span class="line"><span class="bullet">  -</span> 如果两种情况下，情况一只包含一个模块，情况二则包含两个模块，并且两种情况下被引入的次数也是相同的，前两条规则仍然有效。</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> minSize、maxSize</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+  minSize、maxSize
+  <div class="highlight-container" data-rel="Pf"><figure class="iseeu highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   ： 分别表示 chunk 在被拆分之前的最小体积和最大体积（<span class="keyword">max</span>Size 可以小于 <span class="keyword">min</span>Size）</span><br><span class="line"></span><br><span class="line">  - <span class="keyword">min</span>Size 表示被拆分出的 bundle 在拆分之前的体积的最小数值，只有 &gt;= <span class="keyword">min</span>Size 的 bundle 会被拆分出来；</span><br><span class="line">  - <span class="keyword">max</span>Size 表示被拆分出的 bundle 在拆分之前的体积的最大数值，默认值为 <span class="number">0</span>，表示 bundle 在拆分前的体积没有上限；</span><br><span class="line">  - <span class="keyword">max</span>Size 如果为非 <span class="number">0</span> 值时，不可以小于 <span class="keyword">min</span>Size；</span><br><span class="line">  - 如果 bundle 在被拆分前的体积大于 <span class="keyword">max</span>Size，webpack 将会尝试将它拆分成更小的模块（前提是 bundle 在拆分之前由多个模块组成，如果仅仅只包含一个模块，大于 <span class="keyword">max</span>Size 和大于 <span class="keyword">min</span>Size 小于等于 <span class="keyword">max</span>Size 是一样的效果）；</span><br><span class="line">  - 应用 <span class="keyword">max</span>Size 打包的 bundle 其名称会由“不应用 <span class="keyword">max</span>Size 时产生的 bundle 名称”和“一个生成的 key 值”组成；</span><br><span class="line">  - <span class="keyword">max</span>Size 对于直接引入（import 或 require 引入）的部分或者按需引入的部分都有效，不过有些许区别，按需引入的包如果被拆分则使用 chunk 的名称作为 bundle 名，不会像前面的案例那样包含一些 key，如果非按需引入的部分包含于入口点名称构建的 bundle 时，该 bundle 名称将包含前面案例中类似的 key；</span><br><span class="line">  - <span class="keyword">min</span>Size 对于按需引入的部分是没有效的，因为无论在什么情况下，按需引入的部分都会被拆分打包出来；</span><br><span class="line"></span><br><span class="line">- name</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+  name
+  <div class="highlight-container" data-rel="Xquery"><figure class="iseeu highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   : 这个配置用于控制 webpack 打包时被拆分出来的 bundle 的名称。</span><br><span class="line"></span><br><span class="line">  - splitChunks<span class="built_in">.name</span> 用于控制 webpack 打包时被拆分出来的 bundle 的名称;</span><br><span class="line">  - 该配置的值有三种选择，可以是一个布尔值<span class="built_in">（true</span> 和<span class="built_in"> false</span>），也可以是一个函数（形式如 <span class="keyword">function</span> (<span class="keyword">module</span>, chunks, cacheGroupKey) =&gt;<span class="built_in"> string</span>），又或许是一个单纯的 String 类型;</span><br><span class="line">  - 该配置也可以在缓存组中单独配置，如：splitChunks.cacheGroups.&#123;缓存组的名称&#125;<span class="built_in">.name</span>;</span><br><span class="line">  - 如果配置为一个布尔值，比如默认下该配置为<span class="built_in"> true</span>，对于生成的 chunk 的名称，将会基于打包过程中 chunks 和缓存组名称自动生成，如果值为<span class="built_in"> false</span>，将会直接使用 chunk 名称;</span><br><span class="line">  - 你可以通过给该配置配置一个字符串或者函数来自定义定制打包后 chunk 的名称。如果配置的字符串是静态的或者配置的函数返回的是一个静态的字符串，将会使得被另外单独拆分的所有 chunk 都被打包到一个单独的文件中，这会导致页面首次加载增加，减慢页面的加载;</span><br><span class="line">  - 如果给该配置赋值为一个函数，我们可以很好地利用参数中的 chunk<span class="built_in">.name</span> 和 chunk.hash 来定制打包后生成的<span class="built_in"> name</span>（这里所说的 chunk 是参数 chunks 参数的某一项，chunks 是所有 chunk 的集合）;</span><br><span class="line">  - 如果 splitChunks<span class="built_in">.name</span> 匹配到一个入口点名称，打包后生成的 bundle 中该入口点将会被删除;</span><br><span class="line">  - 对于按需引入的模块，仅在 chunks 为 all 时有效，并且值得注意的是，如果<span class="built_in"> name</span> 的赋值形式是 <span class="keyword">function</span>，并根据 chunks 等信息来自定义<span class="built_in"> name</span> 规则时，只对直接引入的部分有效，对按需引入无效，而对于返回一个静态字符串和直接赋值静态字符串是有效的，其他的情况也是有效的；</span><br><span class="line">  - 官方建议在生产环境时将<span class="built_in"> name</span> 设置为<span class="built_in"> false</span>，为了“it doesn<span class="string">&#x27;t change names unnecessarily”（这将保证不会不必要地更改名称），具体怎样去理解个人暂时还不清楚；</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">- ```</span></span><br><span class="line"><span class="string">  cacheGroups</span></span><br></pre></td></tr></table></figure></div>
+
+   : 缓存组，可以使用并覆盖splitChunks的配置项。拥有三个特定的属性
+
+  - test: 表示要过滤 modules，默认为所有的 modules，可匹配模块路径或 chunk 名字，当匹配到某个 chunk 的名字时，这个 chunk 里面引入的所有 module 都会选中；
+  - priority：权重，数字越大表示优先级越高。一个 module 可能会满足多个 cacheGroups 的正则匹配，到底将哪个缓存组应用于这个 module，取决于优先级；默认为辅助
+  - reuseExistingChunk：表示是否使用已有的 chunk，true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的，即几个 chunk 复用被拆分出去的一个 module；
+</code></pre>
+</li>
+</ul>
+<h2 id="tree-shaking-原理"><a href="#tree-shaking-原理" class="headerlink" title="tree-shaking 原理"></a>tree-shaking 原理</h2><p>利用es6模块的特点： </p>
+<ul>
+<li>只能作为模块顶层的语句出现</li>
+<li>import的模块名只能是字符串常量，不能动态引入</li>
+<li>import binding是immutable,引入的模块不能再做修改</li>
+</ul>
+<h2 id="webpack-hash"><a href="#webpack-hash" class="headerlink" title="webpack hash"></a>webpack hash</h2><blockquote>
+<p>webpack中hash分为 hash、chunkhash、contenthash </p>
+</blockquote>
+<blockquote>
+<p>hash：也被叫做文件指纹，是指打包后输出的文件名和后缀 </p>
+</blockquote>
+<blockquote>
+<p>hash一般是结合CDN缓存来使用，通过webpack构建之后，生产对应文件名自动带上对应的MD5值。如果文件内容发生改变时contenthash也会发生变化，对应的HTML引用的URL地址也会发生变化，触发CDN服务器从源代码服务器上拉取最新的文件资源更新本地缓存 </p>
+</blockquote>
+<p><strong>常见的webpack占位符</strong> </p>
+<table>
+<thead>
+<tr>
+<th><strong>占位符名称</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ext</td>
+<td>资源后缀名</td>
+</tr>
+<tr>
+<td>name</td>
+<td>文件名称</td>
+</tr>
+<tr>
+<td>path</td>
+<td>文件的相对路径</td>
+</tr>
+<tr>
+<td>folder</td>
+<td>文件所在的文件夹</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>每次webpack构建时生成一个唯一的hash值</td>
+</tr>
+<tr>
+<td>chunkhash</td>
+<td>根据chunk生成hash值，来源于同一个chunk，则hash值就一样</td>
+</tr>
+<tr>
+<td>contenthash</td>
+<td>根据内容生成hash值，文件内容相同hash值就相同</td>
+</tr>
+</tbody></table>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=M2RlMTlmZjFhOTdiYjYwZmVmNTEzNjdhMDZkY2IzYjNfbFZpdE9JM2tBSWtUZGdNWm8xOTRIQmtFU3U2eUlqckJfVG9rZW46Ym94Y25RZUNSSmJwSTgzbnFLcWJZSWNwU1NkXzE2ODIzODA1NTQ6MTY4MjM4NDE1NF9WNA"
+                      alt="img"
+                ></p>
+<p><strong>hash</strong> </p>
+<ul>
+<li>Hash 是整个项目的hash值，其根据每次编译内容计算得到，每次编译之后都会生成新的hash,即修改任何文件都会导致所有文件的hash发生改变</li>
+</ul>
+<p><strong>chunkhash</strong> </p>
+<p>采用hash计算的话，每一次构建后生成的哈希值都不一样，即使文件内容压根没有改变。这样子是没办法实现缓存效果，我们需要换另一种哈希值计算方式，即chunkhash </p>
+<ul>
+<li>chunkhash和hash不一样，它根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。我们在生产环境里把一些公共库和程序入口文件区分开，单独打包构建，接着我们采用chunkhash的方式生成哈希值，那么只要我们不改动公共库的代码，就可以保证其哈希值不会受影响</li>
+</ul>
+<p><strong>contenthash</strong> </p>
+<ul>
+<li>使用chunkhash存在一个问题，就是当在一个JS文件中引入CSS文件，编译后它们的hash是相同的，而且只要js文件发生改变 ，关联的css文件hash也会改变,这个时候可以使用<code>mini-css-extract-plugin</code>里的<code>contenthash</code>值，保证即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么不会重复构建</li>
+</ul>
+<h2 id="webpack-debugger测试"><a href="#webpack-debugger测试" class="headerlink" title="webpack debugger测试"></a>webpack debugger测试</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const webpack = require(&quot;webpack&quot;);</span><br><span class="line">const config = require(&quot;./webpack.config&quot;);</span><br><span class="line"></span><br><span class="line">const compiler = webpack(config);</span><br><span class="line"></span><br><span class="line">compiler.run((err,stats)=&gt;&#123;</span><br><span class="line">    if(err) throw err;</span><br><span class="line">    console.log(stats);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="dotenv-配置多个环境变量"><a href="#dotenv-配置多个环境变量" class="headerlink" title="dotenv 配置多个环境变量"></a>dotenv 配置多个环境变量</h2><ol>
+<li>生成<code>.env</code>文件</li>
+</ol>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// .env</span><br><span class="line">DB_HOST=localhost</span><br><span class="line">DB_USER=root</span><br><span class="line">DB_PASS=s1mpl3</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>将文件内容转为变量</li>
+</ol>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dotenvFile = <span class="string">&quot;.env&quot;</span>;</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;dotenv-expand&#x27;</span>)(</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;dotenv&#x27;</span>).<span class="title function_">config</span>(&#123;</span><br><span class="line">        <span class="attr">path</span>:dotenvFile</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(process.<span class="property">env</span>.<span class="property">DB_HOST</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(process.<span class="property">env</span>.<span class="property">DB_USER</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(process.<span class="property">env</span>.<span class="property">DB_PASS</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="loader-runner-文件"><a href="#loader-runner-文件" class="headerlink" title="loader-runner 文件"></a>loader-runner 文件</h2><blockquote>
+<p><strong>loader的执行流程</strong> </p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://rg01pyzvm3.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGE1OTdhNWFjNzc2YWQ0NGMxNzkxMzBmODJmZDUzNWFfZHJka1pHU3M0YnpUYmZZTGZUVUUzQlozQjgzNVhyWkxfVG9rZW46Ym94Y25lTEtIVWd5SmZISlNjalRBT1FFTmMxXzE2ODIzODA1NTQ6MTY4MjM4NDE1NF9WNA"
+                      alt="img"
+                ></p>
+<blockquote>
+<p>loader的核心执行流程 loader-runner.js文件 </p>
+</blockquote>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/webpack/loader-runner/tree/v2.4.0/lib" >https://github.com/webpack/loader-runner/tree/v2.4.0/lib <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+</blockquote>
+<p>注意： </p>
+<ul>
+<li>如果<code>loader</code>需要返回多个值的时候，必须要<code>this.callback(err,...args)</code>这种方式返回,不要使用<code>return</code></li>
+<li>上一个<code>loader</code>的返回值 会作为下一个<code>loader</code>的参数</li>
+</ul>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> readFile = fs.<span class="property">readFile</span>.<span class="title function_">bind</span>(fs);</span><br><span class="line"><span class="keyword">var</span> loadLoader = <span class="built_in">require</span>(<span class="string">&quot;./loadLoader&quot;</span>); <span class="comment">// 获取解析好的loader的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// buffer -&gt; 文字</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">utf8BufferToString</span>(<span class="params">buf</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> str = buf.<span class="title function_">toString</span>(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(str.<span class="title function_">charCodeAt</span>(<span class="number">0</span>) === <span class="number">0xFEFF</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> str.<span class="title function_">substr</span>(<span class="number">1</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 截取 ?xxx</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">splitQuery</span>(<span class="params">req</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> i = req.<span class="title function_">indexOf</span>(<span class="string">&quot;?&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(i &lt; <span class="number">0</span>) <span class="keyword">return</span> [req, <span class="string">&quot;&quot;</span>];</span><br><span class="line">  <span class="keyword">return</span> [req.<span class="title function_">substr</span>(<span class="number">0</span>, i), req.<span class="title function_">substr</span>(i)];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取文件名</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dirname</span>(<span class="params">path</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(path === <span class="string">&quot;/&quot;</span>) <span class="keyword">return</span> <span class="string">&quot;/&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> i = path.<span class="title function_">lastIndexOf</span>(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> j = path.<span class="title function_">lastIndexOf</span>(<span class="string">&quot;\\&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> i2 = path.<span class="title function_">indexOf</span>(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> j2 = path.<span class="title function_">indexOf</span>(<span class="string">&quot;\\&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> idx = i &gt; j ? i : j;</span><br><span class="line">  <span class="keyword">var</span> idx2 = i &gt; j ? i2 : j2;</span><br><span class="line">  <span class="keyword">if</span>(idx &lt; <span class="number">0</span>) <span class="keyword">return</span> path;</span><br><span class="line">  <span class="keyword">if</span>(idx === idx2) <span class="keyword">return</span> path.<span class="title function_">substr</span>(<span class="number">0</span>, idx + <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">substr</span>(<span class="number">0</span>, idx);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 绝对路径的loader字符串 =&gt; loader对象</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createLoaderObject</span>(<span class="params">loader</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">query</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">options</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">ident</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">normal</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">pitch</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">raw</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">data</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">pitchExecuted</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">normalExecuted</span>: <span class="literal">false</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// request 返回的相当于是路径</span></span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj, <span class="string">&quot;request&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj.<span class="property">path</span> + obj.<span class="property">query</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> value === <span class="string">&quot;string&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> splittedRequest = <span class="title function_">splitQuery</span>(value);</span><br><span class="line">        obj.<span class="property">path</span> = splittedRequest[<span class="number">0</span>];</span><br><span class="line">        obj.<span class="property">query</span> = splittedRequest[<span class="number">1</span>];</span><br><span class="line">        obj.<span class="property">options</span> = <span class="literal">undefined</span>;</span><br><span class="line">        obj.<span class="property">ident</span> = <span class="literal">undefined</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(!value.<span class="property">loader</span>)</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;request should be a string or object with loader and object (&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(value) + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">        obj.<span class="property">path</span> = value.<span class="property">loader</span>;</span><br><span class="line">        obj.<span class="property">options</span> = value.<span class="property">options</span>;</span><br><span class="line">        obj.<span class="property">ident</span> = value.<span class="property">ident</span>;</span><br><span class="line">        <span class="keyword">if</span>(obj.<span class="property">options</span> === <span class="literal">null</span>)</span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(obj.<span class="property">options</span> === <span class="literal">undefined</span>)</span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> obj.<span class="property">options</span> === <span class="string">&quot;string&quot;</span>)</span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;?&quot;</span> + obj.<span class="property">options</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(obj.<span class="property">ident</span>)</span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;??&quot;</span> + obj.<span class="property">ident</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> obj.<span class="property">options</span> === <span class="string">&quot;object&quot;</span> &amp;&amp; obj.<span class="property">options</span>.<span class="property">ident</span>)</span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;??&quot;</span> + obj.<span class="property">options</span>.<span class="property">ident</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          obj.<span class="property">query</span> = <span class="string">&quot;?&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(obj.<span class="property">options</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  obj.<span class="property">request</span> = loader;</span><br><span class="line">  <span class="comment">// 将对象标记为不可再扩展的</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="title class_">Object</span>.<span class="property">preventExtensions</span>) &#123;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">preventExtensions</span>(obj);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 同步或异步执行loader</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  fn =&gt; 当前loader的pitch 或者是当前loader自身函数</span></span><br><span class="line"><span class="comment">  context =&gt; loaderContext, </span></span><br><span class="line"><span class="comment">  args =&gt; [remainingRequest,previousRequest,data] 或者是 包含buffer的数组</span></span><br><span class="line"><span class="comment">  callback =&gt; 回调函数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">runSyncOrAsync</span>(<span class="params">fn, context, args, callback</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> isSync = <span class="literal">true</span>; <span class="comment">// 是否是异步</span></span><br><span class="line">  <span class="keyword">var</span> isDone = <span class="literal">false</span>; <span class="comment">// 是否执行完毕</span></span><br><span class="line">  <span class="keyword">var</span> isError = <span class="literal">false</span>; <span class="comment">// internal error 是否发生错误</span></span><br><span class="line">  <span class="keyword">var</span> reportedError = <span class="literal">false</span>; <span class="comment">// 是否有错误信息</span></span><br><span class="line">  <span class="comment">// 为loaderContext定义async方法 =&gt; 也就是说 loader中 =&gt;  const callback = this.async();</span></span><br><span class="line">  context.<span class="property">async</span> = <span class="keyword">function</span> <span class="title function_">async</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isDone) &#123; <span class="comment">// 第一次执行 为false 不执行</span></span><br><span class="line">      <span class="keyword">if</span>(reportedError) <span class="keyword">return</span>; <span class="comment">// ignore</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;async(): The callback was already called.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将异步修改为false</span></span><br><span class="line">    isSync = <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 返回 对应的callback方法</span></span><br><span class="line">    <span class="keyword">return</span> innerCallback;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 定义callback方法同时也是 异步loader的返回值 this.callback(); 进行执行loader</span></span><br><span class="line">  <span class="keyword">var</span> innerCallback = context.<span class="property">callback</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isDone) &#123;</span><br><span class="line">      <span class="keyword">if</span>(reportedError) <span class="keyword">return</span>; <span class="comment">// ignore</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;callback(): The callback was already called.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将loader标记为 执行完毕且不再是异步</span></span><br><span class="line">    isDone = <span class="literal">true</span>;</span><br><span class="line">    isSync = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 执行runSyncOrAsync的callback参数 并传入 callback中的参数 </span></span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        const callback = this.async();</span></span><br><span class="line"><span class="comment">        callback(&quot;执行成功了&quot;);  </span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      callback.<span class="title function_">apply</span>(<span class="literal">null</span>, <span class="variable language_">arguments</span>); <span class="comment">// arguments =&gt; 0:&quot;执行成功了&quot;</span></span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      isError = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 执行pitch方法 修改this指向为loaderContext 并传入 [remainingRequest,previousRequest,data]</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = (<span class="keyword">function</span> <span class="title function_">LOADER_EXECUTION</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> fn.<span class="title function_">apply</span>(context, args);</span><br><span class="line">    &#125;());</span><br><span class="line">    <span class="comment">// 判断是否为true 默认为true</span></span><br><span class="line">    <span class="keyword">if</span>(isSync) &#123;</span><br><span class="line">      isDone = <span class="literal">true</span>; <span class="comment">// 执行完毕</span></span><br><span class="line">      <span class="comment">// 判断result的返回值 </span></span><br><span class="line">      <span class="comment">// undefined 表示没有返回值执行callback </span></span><br><span class="line">      <span class="comment">// promise 执行then方法 并调用callback接受返回值</span></span><br><span class="line">      <span class="comment">// 其他值 表示有返回值 调用callback 传入数据</span></span><br><span class="line">       <span class="keyword">if</span>(result === <span class="literal">undefined</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">callback</span>();</span><br><span class="line">      <span class="keyword">if</span>(result &amp;&amp; <span class="keyword">typeof</span> result === <span class="string">&quot;object&quot;</span> &amp;&amp; <span class="keyword">typeof</span> result.<span class="property">then</span> === <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> result.<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">r</span>) &#123;</span><br><span class="line">          <span class="title function_">callback</span>(<span class="literal">null</span>, r);</span><br><span class="line">        &#125;, callback);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="literal">null</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isError) <span class="keyword">throw</span> e;</span><br><span class="line">    <span class="keyword">if</span>(isDone) &#123;</span><br><span class="line">      <span class="comment">// loader is already &quot;done&quot;, so we cannot use the callback function</span></span><br><span class="line">      <span class="comment">// for better debugging we print the error on the console</span></span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> e === <span class="string">&quot;object&quot;</span> &amp;&amp; e.<span class="property">stack</span>) <span class="variable language_">console</span>.<span class="title function_">error</span>(e.<span class="property">stack</span>);</span><br><span class="line">      <span class="keyword">else</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(e);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    isDone = <span class="literal">true</span>;</span><br><span class="line">    reportedError = <span class="literal">true</span>;</span><br><span class="line">    <span class="title function_">callback</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">convertArgs</span>(<span class="params">args, raw</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(!raw &amp;&amp; <span class="title class_">Buffer</span>.<span class="title function_">isBuffer</span>(args[<span class="number">0</span>]))</span><br><span class="line">    args[<span class="number">0</span>] = <span class="title function_">utf8BufferToString</span>(args[<span class="number">0</span>]);</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(raw &amp;&amp; <span class="keyword">typeof</span> args[<span class="number">0</span>] === <span class="string">&quot;string&quot;</span>)</span><br><span class="line">    args[<span class="number">0</span>] = <span class="keyword">new</span> <span class="title class_">Buffer</span>(args[<span class="number">0</span>], <span class="string">&quot;utf-8&quot;</span>); <span class="comment">// eslint-disable-line</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// 递归执行loader pitch方法 </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">iteratePitchingLoaders</span>(<span class="params">options, loaderContext, callback</span>) &#123;</span><br><span class="line">  <span class="comment">// abort after last loader</span></span><br><span class="line">  <span class="comment">// 判断是否越界</span></span><br><span class="line">  <span class="keyword">if</span>(loaderContext.<span class="property">loaderIndex</span> &gt;= loaderContext.<span class="property">loaders</span>.<span class="property">length</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">processResource</span>(options, loaderContext, callback); <span class="comment">// 越界 开始获取执行loader的文件内容 以及遍历执行loader</span></span><br><span class="line">  <span class="comment">// 获取当前loader</span></span><br><span class="line">  <span class="keyword">var</span> currentLoaderObject = loaderContext.<span class="property">loaders</span>[loaderContext.<span class="property">loaderIndex</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// iterate 判断当前loader的 pitch 是否执行过了 如果执行过了 递归向后执行</span></span><br><span class="line">  <span class="keyword">if</span>(currentLoaderObject.<span class="property">pitchExecuted</span>) &#123;</span><br><span class="line">    loaderContext.<span class="property">loaderIndex</span>++;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">iteratePitchingLoaders</span>(options, loaderContext, callback);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// </span></span><br><span class="line">  <span class="comment">// load loader module</span></span><br><span class="line">  <span class="comment">// 开始执行loader 并将当前loader 传入</span></span><br><span class="line">  <span class="title function_">loadLoader</span>(currentLoaderObject, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err) &#123;</span><br><span class="line">      <span class="comment">// 如果发生错误 不缓存当前loader并返回错误</span></span><br><span class="line">      loaderContext.<span class="title function_">cacheable</span>(<span class="literal">false</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取当前pitch函数，并将pitchExecuted标记为true，以表示pitch函数执行过了</span></span><br><span class="line">    <span class="keyword">var</span> fn = currentLoaderObject.<span class="property">pitch</span>;</span><br><span class="line">    currentLoaderObject.<span class="property">pitchExecuted</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// 如果没有pitch函数继续执行返回 165 行进行判断并向下执行</span></span><br><span class="line">    <span class="keyword">if</span>(!fn) <span class="keyword">return</span> <span class="title function_">iteratePitchingLoaders</span>(options, loaderContext, callback);</span><br><span class="line">    <span class="comment">// 存在pitch函数</span></span><br><span class="line">    <span class="comment">// 传入pitch函数，传入loaderContext，传入remainingRequest(当前loader之前的loader)，previousRequest(当前loader之后的loader)，以及当前loader的data属性</span></span><br><span class="line">    <span class="title function_">runSyncOrAsync</span>(</span><br><span class="line">      fn,</span><br><span class="line">      loaderContext, [loaderContext.<span class="property">remainingRequest</span>, loaderContext.<span class="property">previousRequest</span>, currentLoaderObject.<span class="property">data</span> = &#123;&#125;],</span><br><span class="line">      <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果执行错误 则返回当前的无错误</span></span><br><span class="line">        <span class="keyword">if</span>(err) <span class="keyword">return</span> <span class="title function_">callback</span>(err);</span><br><span class="line">        <span class="comment">// 获取除错误信息，之后的arguments</span></span><br><span class="line">        <span class="keyword">var</span> args = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 如果大于0表明pitch函数返回了数据, 让当前的pitch函数所在的loader的index减一 并执行对应loader的自身函数</span></span><br><span class="line">        <span class="comment">// 如果不大于0 表示没有返回值 继续递归执行相应的loader</span></span><br><span class="line">        <span class="keyword">if</span>(args.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          loaderContext.<span class="property">loaderIndex</span>--;</span><br><span class="line">          <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, args, callback);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="title function_">iteratePitchingLoaders</span>(options, loaderContext, callback);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取loader的文件内容</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">processResource</span>(<span class="params">options, loaderContext, callback</span>) &#123;</span><br><span class="line">  <span class="comment">// set loader index to last loader</span></span><br><span class="line">  <span class="comment">// loaderIndex 指向loader的最后一位</span></span><br><span class="line">  loaderContext.<span class="property">loaderIndex</span> = loaderContext.<span class="property">loaders</span>.<span class="property">length</span> - <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// 执行loader函数</span></span><br><span class="line">  <span class="keyword">var</span> resourcePath = loaderContext.<span class="property">resourcePath</span>;</span><br><span class="line">  <span class="keyword">if</span>(resourcePath) &#123;</span><br><span class="line">    loaderContext.<span class="title function_">addDependency</span>(resourcePath);</span><br><span class="line">    <span class="comment">// readFile 读取文件并保存到resourceBuffer中</span></span><br><span class="line">    options.<span class="title function_">readResource</span>(resourcePath, <span class="keyword">function</span>(<span class="params">err, buffer</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span>(err) <span class="keyword">return</span> <span class="title function_">callback</span>(err);</span><br><span class="line">      options.<span class="property">resourceBuffer</span> = buffer;</span><br><span class="line">      <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, [buffer], callback);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, [<span class="literal">null</span>], callback);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// 递归执行loader函数 也就是normal函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">iterateNormalLoaders</span>(<span class="params">options, loaderContext, args, callback</span>) &#123;</span><br><span class="line">  <span class="comment">// 判断loader是否越界</span></span><br><span class="line">  <span class="keyword">if</span>(loaderContext.<span class="property">loaderIndex</span> &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="literal">null</span>, args);</span><br><span class="line">  <span class="comment">// 获取当前loader</span></span><br><span class="line">  <span class="keyword">var</span> currentLoaderObject = loaderContext.<span class="property">loaders</span>[loaderContext.<span class="property">loaderIndex</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// iterate // 判断当前loader 函数是否执行过 如果执行过递归向前执行</span></span><br><span class="line">   <span class="keyword">if</span>(currentLoaderObject.<span class="property">normalExecuted</span>) &#123; </span><br><span class="line">    loaderContext.<span class="property">loaderIndex</span>--;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, args, callback);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取loader自身函数</span></span><br><span class="line">  <span class="keyword">var</span> fn = currentLoaderObject.<span class="property">normal</span>;</span><br><span class="line">  <span class="comment">// 标记自身函数为执行过</span></span><br><span class="line">  currentLoaderObject.<span class="property">normalExecuted</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 如果没有函数 递归向前执行</span></span><br><span class="line">  <span class="keyword">if</span>(!fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, args, callback);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 判断是否存在raw属性 如果为true表示buffer，false表示字符串</span></span><br><span class="line">  <span class="title function_">convertArgs</span>(args, currentLoaderObject.<span class="property">raw</span>);</span><br><span class="line">  <span class="comment">// 执行loader</span></span><br><span class="line">  <span class="title function_">runSyncOrAsync</span>(fn, loaderContext, args, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err) <span class="keyword">return</span> <span class="title function_">callback</span>(err);</span><br><span class="line">    <span class="comment">// args 此时拿到的是当前loader的返回值 作为下一个loader的参数传入</span></span><br><span class="line">    <span class="keyword">var</span> args = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="title function_">iterateNormalLoaders</span>(options, loaderContext, args, callback);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">getContext</span> = <span class="keyword">function</span> <span class="title function_">getContext</span>(<span class="params">resource</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> splitted = <span class="title function_">splitQuery</span>(resource);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">dirname</span>(splitted[<span class="number">0</span>]);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 解析并执行loader</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">runLoaders</span> = <span class="keyword">function</span> <span class="title function_">runLoaders</span>(<span class="params">options, callback</span>) &#123;</span><br><span class="line">  <span class="comment">// read options</span></span><br><span class="line">  <span class="keyword">var</span> resource = options.<span class="property">resource</span> || <span class="string">&quot;&quot;</span>; <span class="comment">// 需要执行loader 的文件内容</span></span><br><span class="line">  <span class="keyword">var</span> loaders = options.<span class="property">loaders</span> || []; <span class="comment">// 需要执行的loader</span></span><br><span class="line">  <span class="keyword">var</span> loaderContext = options.<span class="property">context</span> || &#123;&#125;; <span class="comment">// loader中的this指向</span></span><br><span class="line">  <span class="keyword">var</span> readResource = options.<span class="property">readResource</span> || readFile; <span class="comment">// fs.readFile</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> splittedResource = resource &amp;&amp; <span class="title function_">splitQuery</span>(resource);</span><br><span class="line">  <span class="keyword">var</span> resourcePath = splittedResource ? splittedResource[<span class="number">0</span>] : <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">var</span> resourceQuery = splittedResource ? splittedResource[<span class="number">1</span>] : <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">var</span> contextDirectory = resourcePath ? <span class="title function_">dirname</span>(resourcePath) : <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// execution state</span></span><br><span class="line">  <span class="keyword">var</span> requestCacheable = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">var</span> fileDependencies = [];</span><br><span class="line">  <span class="keyword">var</span> contextDependencies = [];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// prepare loader objects</span></span><br><span class="line">  loaders = loaders.<span class="title function_">map</span>(createLoaderObject); <span class="comment">// 将loaders中的绝对路径的loader转为loader对象</span></span><br><span class="line">  </span><br><span class="line">  loaderContext.<span class="property">context</span> = contextDirectory; <span class="comment">// loader内容</span></span><br><span class="line">  loaderContext.<span class="property">loaderIndex</span> = <span class="number">0</span>; <span class="comment">// loader当前位置 </span></span><br><span class="line">  loaderContext.<span class="property">loaders</span> = loaders; <span class="comment">// 所有的loader对象</span></span><br><span class="line">  loaderContext.<span class="property">resourcePath</span> = resourcePath; <span class="comment">// 文件路径</span></span><br><span class="line">  loaderContext.<span class="property">resourceQuery</span> = resourceQuery; <span class="comment">// 文件查询字符串 </span></span><br><span class="line">  loaderContext.<span class="property">async</span> = <span class="literal">null</span>; <span class="comment">// 是否是异步</span></span><br><span class="line">  loaderContext.<span class="property">callback</span> = <span class="literal">null</span>; <span class="comment">// 是否执行callback 在 runSyncOrAsync时被赋值</span></span><br><span class="line">  loaderContext.<span class="property">cacheable</span> = <span class="keyword">function</span> <span class="title function_">cacheable</span>(<span class="params">flag</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(flag === <span class="literal">false</span>) &#123;</span><br><span class="line">      requestCacheable = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  loaderContext.<span class="property">dependency</span> = loaderContext.<span class="property">addDependency</span> = <span class="keyword">function</span> <span class="title function_">addDependency</span>(<span class="params">file</span>) &#123;</span><br><span class="line">    fileDependencies.<span class="title function_">push</span>(file);</span><br><span class="line">  &#125;;</span><br><span class="line">  loaderContext.<span class="property">addContextDependency</span> = <span class="keyword">function</span> <span class="title function_">addContextDependency</span>(<span class="params">context</span>) &#123;</span><br><span class="line">    contextDependencies.<span class="title function_">push</span>(context);</span><br><span class="line">  &#125;;</span><br><span class="line">  loaderContext.<span class="property">getDependencies</span> = <span class="keyword">function</span> <span class="title function_">getDependencies</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> fileDependencies.<span class="title function_">slice</span>();</span><br><span class="line">  &#125;;</span><br><span class="line">  loaderContext.<span class="property">getContextDependencies</span> = <span class="keyword">function</span> <span class="title function_">getContextDependencies</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> contextDependencies.<span class="title function_">slice</span>();</span><br><span class="line">  &#125;;</span><br><span class="line">  loaderContext.<span class="property">clearDependencies</span> = <span class="keyword">function</span> <span class="title function_">clearDependencies</span>(<span class="params"></span>) &#123;</span><br><span class="line">    fileDependencies.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">    contextDependencies.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">    requestCacheable = <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;resource&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span>(loaderContext.<span class="property">resourcePath</span> === <span class="literal">undefined</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">resourcePath</span> + loaderContext.<span class="property">resourceQuery</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> splittedResource = value &amp;&amp; <span class="title function_">splitQuery</span>(value);</span><br><span class="line">      loaderContext.<span class="property">resourcePath</span> = splittedResource ? splittedResource[<span class="number">0</span>] : <span class="literal">undefined</span>;</span><br><span class="line">      loaderContext.<span class="property">resourceQuery</span> = splittedResource ? splittedResource[<span class="number">1</span>] : <span class="literal">undefined</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;request&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">loaders</span>.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">o</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> o.<span class="property">request</span>;</span><br><span class="line">      &#125;).<span class="title function_">concat</span>(loaderContext.<span class="property">resource</span> || <span class="string">&quot;&quot;</span>).<span class="title function_">join</span>(<span class="string">&quot;!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;remainingRequest&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span>(loaderContext.<span class="property">loaderIndex</span> &gt;= loaderContext.<span class="property">loaders</span>.<span class="property">length</span> - <span class="number">1</span> &amp;&amp; !loaderContext.<span class="property">resource</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">loaders</span>.<span class="title function_">slice</span>(loaderContext.<span class="property">loaderIndex</span> + <span class="number">1</span>).<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">o</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> o.<span class="property">request</span>;</span><br><span class="line">      &#125;).<span class="title function_">concat</span>(loaderContext.<span class="property">resource</span> || <span class="string">&quot;&quot;</span>).<span class="title function_">join</span>(<span class="string">&quot;!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;currentRequest&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">loaders</span>.<span class="title function_">slice</span>(loaderContext.<span class="property">loaderIndex</span>).<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">o</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> o.<span class="property">request</span>;</span><br><span class="line">      &#125;).<span class="title function_">concat</span>(loaderContext.<span class="property">resource</span> || <span class="string">&quot;&quot;</span>).<span class="title function_">join</span>(<span class="string">&quot;!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;previousRequest&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">loaders</span>.<span class="title function_">slice</span>(<span class="number">0</span>, loaderContext.<span class="property">loaderIndex</span>).<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">o</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> o.<span class="property">request</span>;</span><br><span class="line">      &#125;).<span class="title function_">join</span>(<span class="string">&quot;!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;query&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> entry = loaderContext.<span class="property">loaders</span>[loaderContext.<span class="property">loaderIndex</span>];</span><br><span class="line">      <span class="keyword">return</span> entry.<span class="property">options</span> &amp;&amp; <span class="keyword">typeof</span> entry.<span class="property">options</span> === <span class="string">&quot;object&quot;</span> ? entry.<span class="property">options</span> : entry.<span class="property">query</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(loaderContext, <span class="string">&quot;data&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> loaderContext.<span class="property">loaders</span>[loaderContext.<span class="property">loaderIndex</span>].<span class="property">data</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// finish loader context</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="title class_">Object</span>.<span class="property">preventExtensions</span>) &#123;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">preventExtensions</span>(loaderContext);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> processOptions = &#123;</span><br><span class="line">    <span class="attr">resourceBuffer</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">readResource</span>: readResource</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 定义完毕属性后 开始遍历执行loader的pitch</span></span><br><span class="line">  <span class="title function_">iteratePitchingLoaders</span>(processOptions, loaderContext, <span class="keyword">function</span>(<span class="params">err, result</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err) &#123;</span><br><span class="line">      <span class="comment">// 返回错误信息</span></span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(err, &#123;</span><br><span class="line">        <span class="attr">cacheable</span>: requestCacheable,</span><br><span class="line">        <span class="attr">fileDependencies</span>: fileDependencies,</span><br><span class="line">        <span class="attr">contextDependencies</span>: contextDependencies</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回对应的数据信息</span></span><br><span class="line">    <span class="title function_">callback</span>(<span class="literal">null</span>, &#123;</span><br><span class="line">      <span class="attr">result</span>: result,</span><br><span class="line">      <span class="attr">resourceBuffer</span>: processOptions.<span class="property">resourceBuffer</span>,</span><br><span class="line">      <span class="attr">cacheable</span>: requestCacheable,<span class="comment">//缓存</span></span><br><span class="line">      <span class="attr">fileDependencies</span>: fileDependencies, <span class="comment">// 文件依赖</span></span><br><span class="line">      <span class="attr">contextDependencies</span>: contextDependencies <span class="comment">// context依赖</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// loadLoader.js</span></span><br><span class="line"><span class="comment">// 核心就是加载loader 并为loader对象进行属性赋值</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> <span class="title function_">loadLoader</span>(<span class="params">loader, callback</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="title class_">System</span> === <span class="string">&quot;object&quot;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="title class_">System</span>.<span class="property">import</span> === <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="title class_">System</span>.<span class="keyword">import</span>(loader.<span class="property">path</span>).<span class="title function_">catch</span>(callback).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"><span class="variable language_">module</span></span>) &#123;</span><br><span class="line">      loader.<span class="property">normal</span> = <span class="keyword">typeof</span> <span class="variable language_">module</span> === <span class="string">&quot;function&quot;</span> ? <span class="variable language_">module</span> : <span class="variable language_">module</span>.<span class="property">default</span>;</span><br><span class="line">      loader.<span class="property">pitch</span> = <span class="variable language_">module</span>.<span class="property">pitch</span>;</span><br><span class="line">      loader.<span class="property">raw</span> = <span class="variable language_">module</span>.<span class="property">raw</span>;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> loader.<span class="property">normal</span> !== <span class="string">&quot;function&quot;</span> &amp;&amp; <span class="keyword">typeof</span> loader.<span class="property">pitch</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">LoaderLoadingError</span>(</span><br><span class="line">          <span class="string">&quot;Module &#x27;&quot;</span> + loader.<span class="property">path</span> + <span class="string">&quot;&#x27; is not a loader (must have normal or pitch function)&quot;</span></span><br><span class="line">        ));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">callback</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 读取loader </span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> <span class="variable language_">module</span> = <span class="built_in">require</span>(loader.<span class="property">path</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      <span class="comment">// it is possible for node to choke on a require if the FD descriptor</span></span><br><span class="line">      <span class="comment">// limit has been reached. give it a chance to recover.</span></span><br><span class="line">      <span class="keyword">if</span>(e <span class="keyword">instanceof</span> <span class="title class_">Error</span> &amp;&amp; e.<span class="property">code</span> === <span class="string">&quot;EMFILE&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> retry = loadLoader.<span class="title function_">bind</span>(<span class="literal">null</span>, loader, callback);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> setImmediate === <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">          <span class="comment">// node &gt;= 0.9.0</span></span><br><span class="line">          <span class="keyword">return</span> <span class="title function_">setImmediate</span>(retry);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// node &lt; 0.9.0</span></span><br><span class="line">          <span class="keyword">return</span> process.<span class="title function_">nextTick</span>(retry);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断；module 如果不是function 并且也不是个对象 就报错</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="variable language_">module</span> !== <span class="string">&quot;function&quot;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="variable language_">module</span> !== <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">LoaderLoadingError</span>(</span><br><span class="line">        <span class="string">&quot;Module &#x27;&quot;</span> + loader.<span class="property">path</span> + <span class="string">&quot;&#x27; is not a loader (export function or es6 module)&quot;</span></span><br><span class="line">      ));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 为loader进行属性赋值</span></span><br><span class="line">    loader.<span class="property">normal</span> = <span class="keyword">typeof</span> <span class="variable language_">module</span> === <span class="string">&quot;function&quot;</span> ? <span class="variable language_">module</span> : <span class="variable language_">module</span>.<span class="property">default</span>;</span><br><span class="line">    loader.<span class="property">pitch</span> = <span class="variable language_">module</span>.<span class="property">pitch</span>;</span><br><span class="line">    loader.<span class="property">raw</span> = <span class="variable language_">module</span>.<span class="property">raw</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> loader.<span class="property">normal</span> !== <span class="string">&quot;function&quot;</span> &amp;&amp; <span class="keyword">typeof</span> loader.<span class="property">pitch</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">LoaderLoadingError</span>(</span><br><span class="line">        <span class="string">&quot;Module &#x27;&quot;</span> + loader.<span class="property">path</span> + <span class="string">&quot;&#x27; is not a loader (must have normal or pitch function)&quot;</span></span><br><span class="line">      ));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 调用callback 此时的loader 已经赋值好了pitch、normal、raw了</span></span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>简述： loader-runner 主要将loader转为对象loader自身函数转为normal属性，pitch函数转为pitch属性，通过runSyncOrAsync执行对应的loader的normal或pitch，iterateNormalLoaders与iteratePitchLoaders作用相似都是递归执行对应函数，其中iteratePitchLoaders会判断pitch函数是否有返回值，如果有返回值 则不会在执行当前loader之前的loader与当前pitch之后的pitch </p>
+</blockquote>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> webpack常用配置汇总</li>
+        <li><strong>作者:</strong> 爱吃猪头爱吃肉</li>
+        <li><strong>创建于:</strong> 2023-04-25 08:03:09</li>
+        
+            <li>
+                <strong>更新于:</strong> 2023-04-25 08:03:16
+            </li>
+        
+        <li>
+            <strong>链接:</strong> http://example.com/2023/04/25/webpack常用配置汇总/
+        </li>
+        <li>
+            <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/webpack/">#webpack</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐文章</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/04/24/学习算法/" title="学习算法" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="学习算法">
+  <span class="title">学习算法</span>
+</a><a class="recommended-article-item" href="/2023/04/16/前端工程化校验配置/" title="前端工程化校验配置" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="前端工程化校验配置">
+  <span class="title">前端工程化校验配置</span>
+</a><a class="recommended-article-item" href="/2023/04/21/Browser架构/" title="浏览器架构" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="浏览器架构">
+  <span class="title">浏览器架构</span>
+</a><a class="recommended-article-item" href="/2023/04/16/css规范/" title="前端 CSS 代码规范" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="前端 CSS 代码规范">
+  <span class="title">前端 CSS 代码规范</span>
+</a><a class="recommended-article-item" href="/2023/04/20/git常见指令/" title="git常见指令" rel="bookmark">
+  <img src="/images/b3eb9d03e5704f619f3fe55d809568ce.jpg" alt="git常见指令">
+  <span class="title">git常见指令</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/24/%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">学习算法</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'b03b8da04a47bfc936a2',
+                    clientSecret: '4b9281f5cd36d1539920d154fc24dd6a9adb2613',
+                    repo: 'zsasjy.github.io',
+                    owner: 'zsasjy',
+                    admin: ['zsasjy'],
+                    id: window.location.pathname,
+                    language: 'zh-CN',
+                    labels: ['Gitalk', 'bug', 'documentation', 'question']
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <!-- <div class="toc-title">此页目录</div> -->
+        <div class="page-title">webpack常用配置汇总</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE"><span class="nav-text">webpack常见配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">npm脚本执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">webpack常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-mode"><span class="nav-text">webpack mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-entry"><span class="nav-text">webpack entry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-output"><span class="nav-text">webpack output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loader%E7%9A%84%E4%B8%89%E7%A7%8D%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="nav-text">loader的三种配置方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-source-map"><span class="nav-text">webpack source-map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-%E5%B8%B8%E7%94%A8loader"><span class="nav-text">webpack 常用loader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack%E5%B8%B8%E7%94%A8plugins"><span class="nav-text">webpack常用plugins </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-devServer"><span class="nav-text">webpack devServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-polyfill"><span class="nav-text">webpack polyfill</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-resolve%E4%BD%BF%E7%94%A8"><span class="nav-text">webpack resolve使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-optimization%E4%BC%98%E5%8C%96"><span class="nav-text">webpack optimization优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree-shaking-%E5%8E%9F%E7%90%86"><span class="nav-text">tree-shaking 原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-hash"><span class="nav-text">webpack hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-debugger%E6%B5%8B%E8%AF%95"><span class="nav-text">webpack debugger测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dotenv-%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AA%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">dotenv 配置多个环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loader-runner-%E6%96%87%E4%BB%B6"><span class="nav-text">loader-runner 文件</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">爱吃猪头爱吃肉</a>
+        </div>
+        
+       
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/4/14 12:00:00
+            </div>
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <div class="customize-info info-item">不知道需要写点啥</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+    
+<script src="/js/libs/mermaid.min.js"></script>
+
+    
+<script src="/js/plugins/mermaid.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
