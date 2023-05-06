@@ -945,7 +945,7 @@ button {
 .markdown-body a {
   position: relative;
   outline: 0;
-  text-decoration: underline;
+  text-decoration: none;
   overflow-wrap: break-word;
   cursor: pointer;
   box-sizing: border-box;
