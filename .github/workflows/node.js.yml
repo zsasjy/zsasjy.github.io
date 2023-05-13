@@ -18,15 +18,15 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: copy dist file scp
-      uses: appleboy/scp-action@master
-      with: 
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        password: ${{ secrets.PASS }}
-        port: 22
-        source: ./
-        target: ${{ secrets.TARGET_DIR }}
+      - name: copy dist file scp
+        uses: appleboy/scp-action@master
+        with: 
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          port: 22
+          source: ./
+          target: ${{ secrets.TARGET_DIR }}
