@@ -28,5 +28,5 @@ jobs:
         username: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
         port: 22
-        source: '.'
+        source: ./
         target: ${{ secrets.TARGET_DIR }}
