@@ -24,9 +24,9 @@ jobs:
     - name: copy dist file scp
       uses: appleboy/scp-action@master
       with: 
-        host: ${{ variables.HOST }}
-        username: ${{ variables.USER }}
-        password: ${{ variables.PASS }}
-        port: ${{ variables.PORT }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.PASS }}
+        port: ${{ secrets.PORT }}
         source: '.'
-        target: ${{ variables.TARGET_DIR }}
+        target: ${{ secrets.TARGET_DIR }}
