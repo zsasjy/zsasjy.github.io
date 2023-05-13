@@ -18,16 +18,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: "16.x"
-        cache: 'npm'
-    - name: install app
-      run: npm ci
-    - name: build app
-      run: npm run build
     - name: copy dist file scp
       uses: appleboy/scp-action@v0.0.1
       with: 
