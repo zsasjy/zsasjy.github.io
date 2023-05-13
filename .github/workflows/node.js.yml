@@ -27,6 +27,6 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
-        port: ${{ secrets.PORT }}
+        port: 22
         source: '.'
         target: ${{ secrets.TARGET_DIR }}
