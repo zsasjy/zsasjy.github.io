@@ -1,10 +1,6 @@
 :root {
   --background-color: #fff;
   --background-color-transparent: rgba(255,255,255,0.6);
-  --background-color-transparent-15: rgba(255,255,255,0.15);
-  --background-color-transparent-40: rgba(255,255,255,0.4);
-  --background-color-transparent-80: #fff;
-  --background-color-transparent-100: #fff;
   --second-background-color: #fafafa;
   --third-background-color: #f7f7f7;
   --third-background-color-transparent: rgba(241,241,241,0.6);
@@ -51,10 +47,6 @@
   :root {
     --background-color: #fff;
     --background-color-transparent: rgba(255,255,255,0.6);
-    --background-color-transparent-15: rgba(255,255,255,0.15);
-    --background-color-transparent-40: rgba(255,255,255,0.4);
-    --background-color-transparent-80: #fff;
-    --background-color-transparent-100: #fff;
     --second-background-color: #fafafa;
     --third-background-color: #f7f7f7;
     --third-background-color-transparent: rgba(241,241,241,0.6);
@@ -102,10 +94,6 @@
   :root {
     --background-color: #202124;
     --background-color-transparent: rgba(32,33,36,0.4);
-    --background-color-transparent-15: rgba(32,33,36,0.15);
-    --background-color-transparent-40: rgba(32,33,36,0.4);
-    --background-color-transparent-80: rgba(32,33,36,0.8);
-    --background-color-transparent-100: #202124;
     --second-background-color: #242529;
     --third-background-color: #292b2f;
     --third-background-color-transparent: rgba(32,33,36,0.6);
@@ -152,10 +140,6 @@
 .light-mode {
   --background-color: #fff;
   --background-color-transparent: rgba(255,255,255,0.6);
-  --background-color-transparent-15: rgba(255,255,255,0.15);
-  --background-color-transparent-40: rgba(255,255,255,0.4);
-  --background-color-transparent-80: #fff;
-  --background-color-transparent-100: #fff;
   --second-background-color: #fafafa;
   --third-background-color: #f7f7f7;
   --third-background-color-transparent: rgba(241,241,241,0.6);
@@ -201,10 +185,6 @@
 .dark-mode {
   --background-color: #202124;
   --background-color-transparent: rgba(32,33,36,0.4);
-  --background-color-transparent-15: rgba(32,33,36,0.15);
-  --background-color-transparent-40: rgba(32,33,36,0.4);
-  --background-color-transparent-80: rgba(32,33,36,0.8);
-  --background-color-transparent-100: #202124;
   --second-background-color: #242529;
   --third-background-color: #292b2f;
   --third-background-color-transparent: rgba(32,33,36,0.6);
